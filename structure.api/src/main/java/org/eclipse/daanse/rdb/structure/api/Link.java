@@ -13,6 +13,9 @@
 */
 package org.eclipse.daanse.rdb.structure.api;
 
-public interface PhysicalTable {
+import java.util.List;
 
+public interface Link {
+
+    List<? extends LinkSide> getSides();
 }

@@ -13,6 +13,10 @@
 */
 package org.eclipse.daanse.rdb.structure.api;
 
-public interface PhysicalTable {
+public interface LinkSide {
+
+    Column getColumn();
+
+    boolean isColumnMultiCardinality();
 
 }

@@ -15,10 +15,11 @@ package org.eclipse.daanse.rdb.structure.api;
 
 import java.util.List;
 
-public sealed interface Table permits PhysicalTable, ViewTable, SystemTable {
+public interface Table {
 
-    String name();
+    String getName();
 
-    List<Column> getColumns();
+    List<? extends Column> getColumns();
 
+    Schema getSchema();
 }

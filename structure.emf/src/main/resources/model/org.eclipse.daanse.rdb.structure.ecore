@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/*********************************************************************
+* Copyright (c) 2024 Contributors to the Eclipse Foundation.
+*
+* This program and the accompanying materials are made
+* available under the terms of the Eclipse Public License 2.0
+* which is available at https://www.eclipse.org/legal/epl-2.0/
+*
+* SPDX-License-Identifier: EPL-2.0
+**********************************************************************/
+-->
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="rdbstructure" nsURI="https://www.daanse.org/spec/org.eclipse.daanse.rdb.structure"
+    nsPrefix="rdbs">
+  <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+    <details key="qualified" value="true"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="Schema" eSuperTypes="#//ISchema">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tables" upperBound="-1"
+        eType="#//Table" containment="true" eOpposite="#//Table/schema" eKeys="#//Table/name"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Table" eSuperTypes="#//ITable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="columns" upperBound="-1"
+        eType="#//Column" containment="true" eOpposite="#//Column/table" eKeys="#//Column/name"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="schema" eType="#//Schema"
+        eOpposite="#//Schema/tables"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PhysicalTable" eSuperTypes="#//IPhysicalTable #//Table"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SystemTable" eSuperTypes="#//ISystemTable #//Table"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ViewTable" eSuperTypes="#//IViewTable #//Table"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Column" eSuperTypes="#//IColumn">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeQualifiers" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="table" eType="#//Table"
+        eOpposite="#//Table/columns"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="linkSides" upperBound="-1"
+        eType="#//LinkSide" eOpposite="#//LinkSide/column"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IColumn" instanceClassName="org.eclipse.daanse.rdb.structure.api.Column"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ISchema" instanceClassName="org.eclipse.daanse.rdb.structure.api.Schema"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IPhysicalTable" instanceClassName="org.eclipse.daanse.rdb.structure.api.PhysicalTable"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IViewTable" instanceClassName="org.eclipse.daanse.rdb.structure.api.ViewTable"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ISystemTable" instanceClassName="org.eclipse.daanse.rdb.structure.api.SystemTable"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ITable" instanceClassName="org.eclipse.daanse.rdb.structure.api.Table"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LinkSide" eSuperTypes="#//ILinkSide">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnMultiCardinality"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="column" eType="#//Column"
+        eOpposite="#//Column/linkSides"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Link" eSuperTypes="#//ILink">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sides" lowerBound="2" upperBound="2"
+        eType="#//LinkSide"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ILink" instanceClassName="org.eclipse.daanse.rdb.structure.api.Link"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ILinkSide" instanceClassName="org.eclipse.daanse.rdb.structure.api.LinkSide"
+      abstract="true" interface="true"/>
+</ecore:EPackage>

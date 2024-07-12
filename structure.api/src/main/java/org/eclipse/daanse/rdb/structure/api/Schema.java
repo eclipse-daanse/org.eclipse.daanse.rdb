@@ -17,7 +17,7 @@ import java.util.List;
 
 public interface Schema {
 
-    List<Table> getTables();
+    List<? extends Table> getTables();
 
-    String name();
+    String getName();
 }

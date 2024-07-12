@@ -11,8 +11,14 @@
 *   SmartCity Jena - initial
 *   Stefan Bischof (bipolis.org) - initial
 */
-package org.eclipse.daanse.rdb.structure.api;
+package org.eclipse.daanse.rdb.structure.emf;
 
-public interface PhysicalTable {
+import org.junit.jupiter.api.Test;
 
+public class TestClass {
+
+    @Test
+    void testName() throws Exception {
+
+    }
 }

@@ -14,5 +14,8 @@
 package org.eclipse.daanse.rdb.structure.api;
 
 public interface Column {
-    String name();
+    String getName();
+
+    Table getTable();
+
 }
