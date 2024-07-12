@@ -41,7 +41,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/typeQualifiers"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/description"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Column/table"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Column/linkSides"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Column/primaryLinks"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Column/foreignLinks"/>
     </genClasses>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//IColumn"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//ISchema"/>
@@ -49,14 +50,10 @@
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//IViewTable"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//ISystemTable"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//ITable"/>
-    <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//LinkSide">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//LinkSide/columnMultiCardinality"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//LinkSide/column"/>
-    </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//Link">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Link/sides"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Link/primaryKey"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Link/foreignKey"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//ILink"/>
-    <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//ILinkSide"/>
   </genPackages>
 </genmodel:GenModel>

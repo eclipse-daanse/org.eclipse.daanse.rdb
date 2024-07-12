@@ -13,9 +13,9 @@
 */
 package org.eclipse.daanse.rdb.structure.api;
 
-import java.util.List;
-
 public interface Link {
 
-    List<? extends LinkSide> getSides();
+    Column getPrimaryKey();
+
+    Column getForeignKey();
 }
