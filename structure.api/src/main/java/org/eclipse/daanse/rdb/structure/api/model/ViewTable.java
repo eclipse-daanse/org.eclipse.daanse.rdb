@@ -11,11 +11,8 @@
 *   SmartCity Jena - initial
 *   Stefan Bischof (bipolis.org) - initial
 */
-package org.eclipse.daanse.rdb.structure.api;
+package org.eclipse.daanse.rdb.structure.api.model;
 
-public interface Link {
+public interface ViewTable   {
 
-    Column getPrimaryKey();
-
-    Column getForeignKey();
 }

@@ -10,6 +10,12 @@
  * Contributors:
  *
  */
-@org.osgi.annotation.bundle.Export
-@org.osgi.annotation.versioning.Version("0.0.1")
 package org.eclipse.daanse.rdb.structure.api;
+
+import java.util.function.Supplier;
+
+import org.eclipse.daanse.rdb.structure.api.model.DatabaseCatalog;
+
+public interface DatabaseStructureProvider extends Supplier<DatabaseCatalog> {
+
+}

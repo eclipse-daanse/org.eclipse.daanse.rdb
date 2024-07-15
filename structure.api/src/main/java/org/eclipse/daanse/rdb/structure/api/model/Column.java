@@ -11,8 +11,11 @@
 *   SmartCity Jena - initial
 *   Stefan Bischof (bipolis.org) - initial
 */
-package org.eclipse.daanse.rdb.structure.api;
+package org.eclipse.daanse.rdb.structure.api.model;
 
-public interface PhysicalTable {
+public interface Column {
+    String getName();
+
+    Table getTable();
 
 }

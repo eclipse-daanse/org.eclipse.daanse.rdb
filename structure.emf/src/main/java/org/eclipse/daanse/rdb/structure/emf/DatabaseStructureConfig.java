@@ -11,15 +11,14 @@
 *   SmartCity Jena - initial
 *   Stefan Bischof (bipolis.org) - initial
 */
-package org.eclipse.daanse.rdb.structure.api;
+package org.eclipse.daanse.rdb.structure.emf;
 
-import java.util.List;
+import org.osgi.service.metatype.annotations.AttributeDefinition;
+import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 
-public interface Table {
+@ObjectClassDefinition
+public @interface DatabaseStructureConfig {
 
-    String getName();
-
-    List<? extends Column> getColumns();
-
-    DatabaseSchema getSchema();
+    @AttributeDefinition(name = Constants.RESOURCE_URL)
+    String resource_url();
 }

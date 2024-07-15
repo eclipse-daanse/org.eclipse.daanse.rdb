@@ -11,11 +11,14 @@
 *   SmartCity Jena - initial
 *   Stefan Bischof (bipolis.org) - initial
 */
-package org.eclipse.daanse.rdb.structure.api;
+package org.eclipse.daanse.rdb.structure.api.model;
 
-public interface Column {
-    String getName();
+import java.util.List;
 
-    Table getTable();
+public interface DatabaseCatalog {
+
+    List<? extends DatabaseSchema> getSchemas();
+
+    List<? extends Link> getLinks();
 
 }
