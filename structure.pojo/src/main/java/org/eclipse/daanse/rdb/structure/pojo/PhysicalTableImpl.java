@@ -11,14 +11,10 @@
 *   SmartCity Jena - initial
 *   Stefan Bischof (bipolis.org) - initial
 */
-package org.eclipse.daanse.rdb.structure.emf;
+package org.eclipse.daanse.rdb.structure.pojo;
 
-import org.osgi.service.metatype.annotations.AttributeDefinition;
-import org.osgi.service.metatype.annotations.ObjectClassDefinition;
+import org.eclipse.daanse.rdb.structure.api.model.PhysicalTable;
 
-@ObjectClassDefinition
-public @interface DatabaseStructureConfig {
+public class PhysicalTableImpl extends AbstractTable implements PhysicalTable {
 
-    @AttributeDefinition(name = Constants.RESOURCE_URL)
-    String resource_url();
 }

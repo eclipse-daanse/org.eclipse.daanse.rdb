@@ -39,7 +39,7 @@
 
   <modules>
     <module>structure.api</module>
-    <module>structure.emf</module>
+    <module>structure.pojo</module>
   </modules>
 
 </project>

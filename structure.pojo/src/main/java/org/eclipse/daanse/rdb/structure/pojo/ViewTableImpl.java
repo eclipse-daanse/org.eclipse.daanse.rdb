@@ -11,14 +11,10 @@
 *   SmartCity Jena - initial
 *   Stefan Bischof (bipolis.org) - initial
 */
-package org.eclipse.daanse.rdb.structure.emf;
+package org.eclipse.daanse.rdb.structure.pojo;
 
-import org.junit.jupiter.api.Test;
+import org.eclipse.daanse.rdb.structure.api.model.ViewTable;
 
-public class TestClass {
+public class ViewTableImpl extends AbstractTable implements ViewTable  {
 
-    @Test
-    void testName() throws Exception {
-
-    }
 }

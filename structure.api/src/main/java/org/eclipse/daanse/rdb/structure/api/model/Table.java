@@ -22,4 +22,6 @@ public interface Table {
     List<? extends Column> getColumns();
 
     DatabaseSchema getSchema();
+
+    String getDescription();
 }

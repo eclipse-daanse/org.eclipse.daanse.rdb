@@ -11,12 +11,10 @@
 *   SmartCity Jena - initial
 *   Stefan Bischof (bipolis.org) - initial
 */
-package org.eclipse.daanse.rdb.structure.emf;
+package org.eclipse.daanse.rdb.structure.pojo;
 
-public class Constants {
+import org.eclipse.daanse.rdb.structure.api.model.SystemTable;
 
-    public static final String RESOURCE_URL = "resource.url";
-
-    public static final String PID_EMF_DATABASE_CATALOG_PROVIDER = "org.eclipse.daanse.rdb.structure.emf.provider.EmfDatabaseStructureProvider";
+public class SystemTableImpl extends AbstractTable implements SystemTable {
 
 }

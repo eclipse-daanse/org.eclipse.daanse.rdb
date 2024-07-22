@@ -13,9 +13,18 @@
 */
 package org.eclipse.daanse.rdb.structure.api.model;
 
+import java.util.List;
+
 public interface Column {
+
     String getName();
 
     Table getTable();
+
+    String getType();
+
+    List<String> getTypeQualifiers();
+
+    String getDescription();
 
 }

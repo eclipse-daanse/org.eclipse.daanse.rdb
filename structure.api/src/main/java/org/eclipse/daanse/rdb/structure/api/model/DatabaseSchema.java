@@ -20,4 +20,6 @@ public interface DatabaseSchema {
     List<? extends Table> getTables();
 
     String getName();
+
+    String getId();
 }
