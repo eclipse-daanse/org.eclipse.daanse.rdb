@@ -13,6 +13,6 @@
 */
 package org.eclipse.daanse.rdb.structure.api.model;
 
-public interface ViewTable   {
+public interface ViewTable extends Table {
 
 }

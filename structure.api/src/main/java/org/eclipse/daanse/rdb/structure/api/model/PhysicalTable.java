@@ -13,6 +13,6 @@
 */
 package org.eclipse.daanse.rdb.structure.api.model;
 
-public interface PhysicalTable {
+public interface PhysicalTable extends Table{
 
 }
