@@ -11,7 +11,7 @@
  *   SmartCity Jena, Stefan Bischof - initial
  *
  */
-package org.eclipse.daanse.rdb.modifier;
+package org.eclipse.daanse.rdb.structure.modifier.base;
 
 import java.util.List;
 

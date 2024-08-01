@@ -40,7 +40,8 @@
   <modules>
     <module>structure.api</module>
     <module>structure.pojo</module>
-    <module>modifier</module>
+    <module>structure.modifier.base</module>
+    <module>structure.modifier.pojo</module>
   </modules>
 
 </project>

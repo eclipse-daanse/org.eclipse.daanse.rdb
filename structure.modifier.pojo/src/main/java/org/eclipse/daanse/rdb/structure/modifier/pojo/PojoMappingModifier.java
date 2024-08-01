@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rdb.modifier;
+package org.eclipse.daanse.rdb.structure.modifier.pojo;
 
 import java.util.List;
 
@@ -22,6 +22,7 @@ import org.eclipse.daanse.rdb.structure.api.model.PhysicalTable;
 import org.eclipse.daanse.rdb.structure.api.model.SystemTable;
 import org.eclipse.daanse.rdb.structure.api.model.Table;
 import org.eclipse.daanse.rdb.structure.api.model.ViewTable;
+import org.eclipse.daanse.rdb.structure.modifier.base.AbstractMappingModifier;
 import org.eclipse.daanse.rdb.structure.pojo.AbstractTable;
 import org.eclipse.daanse.rdb.structure.pojo.ColumnImpl;
 import org.eclipse.daanse.rdb.structure.pojo.DatabaseCatalogImpl;
