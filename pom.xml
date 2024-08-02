@@ -43,6 +43,7 @@
     <module>structure.emf</module>
     <module>structure.modifier.base</module>
     <module>structure.modifier.pojo</module>
+    <module>structure.modifier.emf</module>
   </modules>
 
 </project>
