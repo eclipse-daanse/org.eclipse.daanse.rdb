@@ -47,7 +47,11 @@
 
 -runrequires: \
 	bnd.identity;id='${project.artifactId}-tests',\
-	bnd.identity;id='${project.artifactId}'
+	bnd.identity;id='${project.artifactId}',\
+	bnd.identity;id='org.eclipse.daanse.jdbc.db.api',\
+	bnd.identity;id='org.eclipse.daanse.jdbc.db.core',\
+	bnd.identity;id='org.eclipse.daanse.jdbc.db.record'
+	
 
 # -runbundles is calculated by the bnd-resolver-maven-plugin
 -runbundles: \
@@ -55,6 +59,7 @@
 	com.h2database;version='[2.2.224,2.2.225)',\
 	junit-jupiter-api;version='[5.10.2,5.10.3)',\
 	junit-jupiter-engine;version='[5.10.2,5.10.3)',\
+	junit-jupiter-params;version='[5.10.2,5.10.3)',\
 	junit-platform-commons;version='[1.10.2,1.10.3)',\
 	junit-platform-engine;version='[1.10.2,1.10.3)',\
 	junit-platform-launcher;version='[1.10.2,1.10.3)',\
@@ -62,6 +67,9 @@
 	org.apache.felix.configadmin;version='[1.9.26,1.9.27)',\
 	org.apache.felix.scr;version='[2.2.10,2.2.11)',\
 	org.eclipse.daanse.emf.model.rdbstructure;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.jdbc.db.api;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.jdbc.db.core;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.jdbc.db.record;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rdb.structure.api;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rdb.structure.reader;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rdb.structure.reader-tests;version='[0.0.1,0.0.2)',\
@@ -73,6 +81,8 @@
 	org.opentest4j;version='[1.3.0,1.3.1)',\
 	org.osgi.service.cm;version='[1.6.1,1.6.2)',\
 	org.osgi.service.component;version='[1.5.1,1.5.2)',\
+	org.osgi.test.common;version='[1.3.0,1.3.1)',\
+	org.osgi.test.junit5;version='[1.3.0,1.3.1)',\
 	org.osgi.util.converter;version='[1.0.9,1.0.10)',\
 	org.osgi.util.function;version='[1.2.0,1.2.1)',\
 	org.osgi.util.promise;version='[1.3.0,1.3.1)'

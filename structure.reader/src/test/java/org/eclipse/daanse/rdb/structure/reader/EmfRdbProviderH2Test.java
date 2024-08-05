@@ -20,10 +20,12 @@ import java.util.UUID;
 
 import javax.sql.DataSource;
 
+import org.eclipse.daanse.jdbc.db.api.DatabaseService;
+import org.eclipse.daanse.jdbc.db.api.meta.MetaInfo;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseCatalog;
-import org.eclipse.daanse.rdb.structure.reader.EmfRdbProvider;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.Test;
+import org.osgi.test.common.annotation.InjectService;
 
 class DatabaseServiceImplH2Test {
 
@@ -38,9 +40,10 @@ class DatabaseServiceImplH2Test {
     }
 
     @Test
-    void test() throws SQLException {
+    void test(@InjectService DatabaseService databaseService) throws SQLException {
         DataSource ds = ds();
-        EmfRdbProvider emfRdbProvider = new EmfRdbProvider(ds.getConnection().getMetaData());
+        MetaInfo metaInfo = databaseService.createMetaInfo(ds.getConnection());
+        EmfRdbProvider emfRdbProvider = new EmfRdbProvider(metaInfo);
         DatabaseCatalog databaseCatalog = emfRdbProvider.get();
         assertThat(databaseCatalog).isNotNull();
     }
