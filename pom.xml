@@ -45,6 +45,7 @@
     <module>structure.modifier.pojo</module>
     <module>structure.modifier.emf</module>
     <module>dbcreator</module>
+    <module>structure.reader</module>
   </modules>
 
 </project>
