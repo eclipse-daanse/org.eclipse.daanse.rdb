@@ -34,7 +34,7 @@ import org.eclipse.daanse.rdb.structure.pojo.ViewTableImpl;
 
 public class PojoMappingModifier extends AbstractMappingModifier {
 
-	public PojoMappingModifier(DatabaseCatalog catalog) {
+    public PojoMappingModifier(DatabaseCatalog catalog) {
         super(catalog);
     }
 
