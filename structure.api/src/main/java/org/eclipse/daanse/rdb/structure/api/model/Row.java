@@ -13,8 +13,10 @@
 */
 package org.eclipse.daanse.rdb.structure.api.model;
 
-public interface Table extends Query {
+import java.util.List;
 
-    // Just a marker Interfacte
+public interface Row {
+
+    List<? extends RowValue> getRowValues();
 
 }

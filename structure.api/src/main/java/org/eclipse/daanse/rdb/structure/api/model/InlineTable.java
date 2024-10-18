@@ -13,8 +13,9 @@
 */
 package org.eclipse.daanse.rdb.structure.api.model;
 
-public interface Table extends Query {
+import java.util.List;
 
-    // Just a marker Interfacte
+public interface InlineTable extends Query {
 
+    List<? extends Row> getRows();
 }

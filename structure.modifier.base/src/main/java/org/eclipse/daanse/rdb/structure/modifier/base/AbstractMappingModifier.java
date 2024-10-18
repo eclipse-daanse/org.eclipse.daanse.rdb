@@ -21,6 +21,7 @@ import org.eclipse.daanse.rdb.structure.api.model.DatabaseCatalog;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
 import org.eclipse.daanse.rdb.structure.api.model.Link;
 import org.eclipse.daanse.rdb.structure.api.model.PhysicalTable;
+import org.eclipse.daanse.rdb.structure.api.model.Query;
 import org.eclipse.daanse.rdb.structure.api.model.SystemTable;
 import org.eclipse.daanse.rdb.structure.api.model.Table;
 import org.eclipse.daanse.rdb.structure.api.model.ViewTable;
@@ -147,11 +148,11 @@ public abstract class AbstractMappingModifier implements DatabaseStructureProvid
         String description
     );
 
-    protected String tableDescription(Table table) {
+    protected String tableDescription(Query table) {
         return table.getDescription();
     }
 
-    protected DatabaseSchema tableSchema(Table table) {
+    protected DatabaseSchema tableSchema(Query table) {
         return databaseSchema(table.getSchema());
     }
 
@@ -186,7 +187,7 @@ public abstract class AbstractMappingModifier implements DatabaseStructureProvid
 
     protected abstract DatabaseSchema createDatabaseSchema(List<? extends Table> tables, String name, String id);
 
-    protected List<? extends Column> tableColumns(Table table) {
+    protected List<? extends Column> tableColumns(Query table) {
         return columns(table.getColumns());
     }
 

@@ -13,8 +13,9 @@
 */
 package org.eclipse.daanse.rdb.structure.api.model;
 
-public interface Table extends Query {
+public interface RowValue {
 
-    // Just a marker Interfacte
+    Column getColumn();
 
+    String getValue();
 }
