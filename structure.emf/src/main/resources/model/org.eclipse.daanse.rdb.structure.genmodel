@@ -28,7 +28,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//DatabaseSchema/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//DatabaseSchema/tables"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//Table"/>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//Table">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Table/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Table/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Table/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Table/columns"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Table/schema"/>
+    </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//PhysicalTable"/>
     <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//SystemTable"/>
     <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//ViewTable"/>
@@ -55,20 +61,12 @@
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//IColumn"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//ILink"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//IInlineTable"/>
-    <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//IQuery"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//IRow"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//IRowValue"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//ISqlStatement"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//ISqlView"/>
     <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//InlineTable">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//InlineTable/rows"/>
-    </genClasses>
-    <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//Query">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Query/id"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Query/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Query/description"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Query/columns"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Query/schema"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//Row">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Row/rowValues"/>

@@ -14,7 +14,7 @@ package org.eclipse.daanse.rdb.structure.api.model;
 
 import java.util.List;
 
-public interface SqlView extends Query {
+public interface SqlView extends Table {
 
     List<? extends SqlStatement> getSqlStatements();
 
