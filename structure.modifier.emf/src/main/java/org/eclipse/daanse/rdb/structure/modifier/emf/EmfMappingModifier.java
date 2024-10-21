@@ -15,12 +15,15 @@ package org.eclipse.daanse.rdb.structure.modifier.emf;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.daanse.rdb.modifier.AbstractMappingModifier;
+import org.eclipse.daanse.rdb.structure.modifier.base.AbstractMappingModifier;
 import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseCatalog;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
 import org.eclipse.daanse.rdb.structure.api.model.Link;
 import org.eclipse.daanse.rdb.structure.api.model.PhysicalTable;
+import org.eclipse.daanse.rdb.structure.api.model.Row;
+import org.eclipse.daanse.rdb.structure.api.model.RowValue;
+import org.eclipse.daanse.rdb.structure.api.model.SqlStatement;
 import org.eclipse.daanse.rdb.structure.api.model.SystemTable;
 import org.eclipse.daanse.rdb.structure.api.model.Table;
 import org.eclipse.daanse.rdb.structure.api.model.ViewTable;
@@ -119,4 +122,63 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         return databaseCatalog;
     }
 
+    @Override
+    protected SqlStatement createSqlStatement(List<String> dialects, String sql) {
+        org.eclipse.daanse.rdb.structure.emf.rdbstructure.SqlStatement sqlStatement = RelationalDatabaseFactory.eINSTANCE
+                .createSqlStatement();
+        sqlStatement.getDialects().addAll(dialects);
+        sqlStatement.setSql(sql);
+        return sqlStatement;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected Table createSqlView(
+        String name, List<? extends Column> columns, DatabaseSchema schema,
+        String description, List<? extends SqlStatement> sqlStatements
+    ) {
+        org.eclipse.daanse.rdb.structure.emf.rdbstructure.SqlView sqlView = RelationalDatabaseFactory.eINSTANCE
+                .createSqlView();
+        sqlView.setName(name);
+        sqlView.getColumns().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column>) columns);
+        sqlView.setSchema((org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema) schema);
+        sqlView.setDescription(description);
+        sqlView.getSqlStatements().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.SqlStatement>) sqlStatements);
+        return sqlView;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected Table createInlineTable(
+        String name, List<? extends Column> columns, DatabaseSchema schema,
+        String description, List<? extends Row> rows
+    ) {
+        org.eclipse.daanse.rdb.structure.emf.rdbstructure.InlineTable inlineTable = RelationalDatabaseFactory.eINSTANCE
+                .createInlineTable();
+        inlineTable.setName(name);
+        inlineTable.getColumns().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column>) columns);
+        inlineTable.setSchema((org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema) schema);
+        inlineTable.setDescription(description);
+        inlineTable.getRows().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Row>) rows);
+        return inlineTable;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected RowValue createRowValue(Column column, String value) {
+        org.eclipse.daanse.rdb.structure.emf.rdbstructure.RowValue rowValue = RelationalDatabaseFactory.eINSTANCE
+                .createRowValue();
+        rowValue.setColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) column);
+        rowValue.setValue(value);
+        return rowValue;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected Row createRow(List<? extends RowValue> rowValues) {
+        org.eclipse.daanse.rdb.structure.emf.rdbstructure.Row row = RelationalDatabaseFactory.eINSTANCE
+                .createRow();
+        row.getRowValues().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.RowValue>) rowValues);
+        return row;
+    }
 }

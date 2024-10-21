@@ -34,7 +34,7 @@
     </dependency>
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
-      <artifactId>org.eclipse.daanse.rdb.modifier</artifactId>
+      <artifactId>org.eclipse.daanse.rdb.structure.modifier.base</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>

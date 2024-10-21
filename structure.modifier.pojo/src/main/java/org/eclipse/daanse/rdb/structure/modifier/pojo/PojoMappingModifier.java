@@ -19,6 +19,9 @@ import org.eclipse.daanse.rdb.structure.api.model.DatabaseCatalog;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
 import org.eclipse.daanse.rdb.structure.api.model.Link;
 import org.eclipse.daanse.rdb.structure.api.model.PhysicalTable;
+import org.eclipse.daanse.rdb.structure.api.model.Row;
+import org.eclipse.daanse.rdb.structure.api.model.RowValue;
+import org.eclipse.daanse.rdb.structure.api.model.SqlStatement;
 import org.eclipse.daanse.rdb.structure.api.model.SystemTable;
 import org.eclipse.daanse.rdb.structure.api.model.Table;
 import org.eclipse.daanse.rdb.structure.api.model.ViewTable;
@@ -29,8 +32,13 @@ import org.eclipse.daanse.rdb.structure.pojo.DatabaseCatalogImpl;
 import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
 import org.eclipse.daanse.rdb.structure.pojo.LinkImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
+import org.eclipse.daanse.rdb.structure.pojo.RowImpl;
+import org.eclipse.daanse.rdb.structure.pojo.RowValueImpl;
+import org.eclipse.daanse.rdb.structure.pojo.SqlStatementImpl;
+import org.eclipse.daanse.rdb.structure.pojo.SqlViewImpl;
 import org.eclipse.daanse.rdb.structure.pojo.SystemTableImpl;
 import org.eclipse.daanse.rdb.structure.pojo.ViewTableImpl;
+import org.eclipse.daanse.rdb.structure.pojo.InlineTableImpl;
 
 public class PojoMappingModifier extends AbstractMappingModifier {
 
@@ -120,6 +128,59 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         databaseCatalog.setSchemas((List<DatabaseSchemaImpl>) schemas);
         databaseCatalog.setLinks((List<LinkImpl>) links);
         return databaseCatalog;
+    }
+
+    @Override
+    protected SqlStatement createSqlStatement(List<String> dialects, String sql) {
+        SqlStatementImpl sqlStatement = new SqlStatementImpl();
+        sqlStatement.setDialects(dialects);
+        sqlStatement.setSql(sql);
+        return sqlStatement;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected Table createSqlView(
+        String name, List<? extends Column> columns, DatabaseSchema schema,
+        String description, List<? extends SqlStatement> sqlStatements
+    ) {
+        SqlViewImpl sqlView = new SqlViewImpl();
+        sqlView.setName(name);
+        sqlView.setColumns((List<ColumnImpl>) columns);
+        sqlView.setSchema((DatabaseSchemaImpl) schema);
+        sqlView.setDescription(description);
+        sqlView.setSqlStatements(sqlStatements);
+        return sqlView;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected Table createInlineTable(
+        String name, List<? extends Column> columns, DatabaseSchema schema,
+        String description, List<? extends Row> rows
+    ) {
+        InlineTableImpl inlineTable = new InlineTableImpl();
+        inlineTable.setName(name);
+        inlineTable.setColumns((List<ColumnImpl>) columns);
+        inlineTable.setSchema((DatabaseSchemaImpl) schema);
+        inlineTable.setDescription(description);
+        inlineTable.setRows(rows);
+        return inlineTable;
+    }
+
+    @Override
+    protected RowValue createRowValue(Column column, String value) {
+        RowValueImpl rowValue = new RowValueImpl();
+        rowValue.setColumn(column);
+        rowValue.setValue(value);
+        return rowValue;
+    }
+
+    @Override
+    protected Row createRow(List<? extends RowValue> rowValues) {
+        RowImpl row = new RowImpl();
+        row.setRowValues(rowValues);
+        return row;
     }
 
 }
