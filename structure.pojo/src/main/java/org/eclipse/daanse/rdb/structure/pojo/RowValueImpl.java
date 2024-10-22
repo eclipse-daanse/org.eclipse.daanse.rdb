@@ -20,6 +20,11 @@ public class RowValueImpl implements RowValue {
     private Column column;
     private String value;
 
+    public RowValueImpl(Builder builder) {
+        this.column = builder.column;
+        this.value = builder.value;
+    }
+
     @Override
     public Column getColumn() {
         return column;
@@ -37,4 +42,29 @@ public class RowValueImpl implements RowValue {
     public void setValue(String value) {
         this.value = value;
     }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+
+        private Column column;
+        private String value;
+
+        public Builder withColumn(Column column) {
+            this.column = column;
+            return this;
+        }
+
+        public Builder withColumn(String value) {
+            this.value = value;
+            return this;
+        }
+
+        public RowValueImpl build() {
+            return new RowValueImpl(this);
+        }
+    }
+
 }

@@ -21,6 +21,18 @@ public class InlineTableImpl extends AbstractTable implements InlineTable {
 
     private List<? extends Row> rows;
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public InlineTableImpl(Builder builder) {
+        setName(builder.name);
+        setColumns(builder.columns);
+        setSchema(builder.schema);
+        setDescription(builder.description);
+        setRows(builder.rows);
+    }
+
     @Override
     public List<? extends Row> getRows() {
         return rows;
@@ -30,4 +42,49 @@ public class InlineTableImpl extends AbstractTable implements InlineTable {
         this.rows = rows;
     }
 
+    public static final class Builder {
+
+        private String name;
+
+        private List<ColumnImpl> columns;
+
+        private DatabaseSchemaImpl schema;
+
+        private String description;
+
+        private List<? extends Row> rows;
+
+        private Builder() {
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withColumns(List<ColumnImpl> columns) {
+            this.columns = columns;
+            return this;
+        }
+
+        public Builder withsSchema(DatabaseSchemaImpl schema) {
+            this.schema = schema;
+            return this;
+        }
+
+        public Builder withsDdescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder withRows(List<Row> rows) {
+            this.rows = rows;
+            return this;
+        }
+
+        public InlineTableImpl build() {
+            return new InlineTableImpl(this);
+        }
+
+    }
 }

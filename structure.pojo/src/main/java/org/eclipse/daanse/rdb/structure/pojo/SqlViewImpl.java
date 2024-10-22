@@ -21,6 +21,18 @@ public class SqlViewImpl extends AbstractTable implements SqlView {
 
     private List<? extends SqlStatement> sqlStatements;
 
+    public SqlViewImpl(Builder builder) {
+        setName(builder.getName());
+        setColumns(builder.getColumns());
+        setSchema(builder.getSchema());
+        setDescription(builder.getDescription());
+        setSqlStatements(builder.sqlStatements);
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public List<? extends SqlStatement> getSqlStatements() {
         return sqlStatements;
@@ -28,5 +40,23 @@ public class SqlViewImpl extends AbstractTable implements SqlView {
 
     public void setSqlStatements(List<? extends SqlStatement> sqlStatements) {
         this.sqlStatements = sqlStatements;
+    }
+
+    public static final class Builder extends AbstractBuilder {
+
+        private List<? extends SqlStatement> sqlStatements;
+
+        private Builder() {
+        }
+
+        public Builder withRows(List<? extends SqlStatement> sqlStatements) {
+            this.sqlStatements = sqlStatements;
+            return this;
+        }
+
+        public SqlViewImpl build() {
+            return new SqlViewImpl(this);
+        }
+
     }
 }

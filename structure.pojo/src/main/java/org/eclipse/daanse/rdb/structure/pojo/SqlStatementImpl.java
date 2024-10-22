@@ -21,6 +21,15 @@ public class SqlStatementImpl implements SqlStatement {
     private List<String> dialects;
     private String sql;
 
+    public SqlStatementImpl(Builder builder) {
+        this.dialects = builder.dialects;
+        this.sql = builder.sql;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public List<String> getDialects() {
         return dialects;
@@ -39,4 +48,23 @@ public class SqlStatementImpl implements SqlStatement {
         this.sql = sql;
     }
 
+    public static final class Builder {
+
+        private List<String> dialects;
+        private String sql;
+
+        public Builder withDialects(List<String> dialects) {
+            this.dialects = dialects;
+            return this;
+        }
+
+        public Builder withSql(String sql) {
+            this.sql = sql;
+            return this;
+        }
+
+        public SqlStatementImpl build() {
+            return new SqlStatementImpl(this);
+        }
+    }
 }

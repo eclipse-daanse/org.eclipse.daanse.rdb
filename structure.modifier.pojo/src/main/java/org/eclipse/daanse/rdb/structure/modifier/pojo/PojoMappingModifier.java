@@ -48,7 +48,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected Link createLink(Column primaryKey, Column foreignKey) {
-        LinkImpl link = new LinkImpl();
+        LinkImpl link = LinkImpl.builder().build();
         link.setPrimaryKey((ColumnImpl) primaryKey);
         link.setForeignKey((ColumnImpl) foreignKey);
         return link;
@@ -59,7 +59,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String name, Table table, String type, List<String> typeQualifiers,
         String description
     ) {
-        ColumnImpl column = new ColumnImpl();
+        ColumnImpl column = ColumnImpl.builder().build();
         column.setName(name);
         column.setTable(table);
         column.setType(type);
@@ -75,7 +75,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String name, List<? extends Column> columns, DatabaseSchema schema,
         String description
     ) {
-        PhysicalTableImpl table = new PhysicalTableImpl();
+        PhysicalTableImpl table = PhysicalTableImpl.builder().build();
         table.setName(name);
         table.setColumns((List<ColumnImpl>) columns);
         table.setSchema((DatabaseSchemaImpl) schema);
@@ -89,7 +89,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String name, List<? extends Column> columns, DatabaseSchema schema,
         String description
     ) {
-        SystemTableImpl table = new SystemTableImpl();
+        SystemTableImpl table = SystemTableImpl.builder().build();
         table.setName(name);
         table.setColumns((List<ColumnImpl>) columns);
         table.setSchema((DatabaseSchemaImpl) schema);
@@ -103,7 +103,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String name, List<? extends Column> columns, DatabaseSchema schema,
         String description
     ) {
-        ViewTableImpl table = new ViewTableImpl();
+        ViewTableImpl table = ViewTableImpl.builder().build();
         table.setName(name);
         table.setColumns((List<ColumnImpl>) columns);
         table.setSchema((DatabaseSchemaImpl) schema);
@@ -114,7 +114,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected DatabaseSchema createDatabaseSchema(List<? extends Table> tables, String name, String id) {
-        DatabaseSchemaImpl databaseSchema = new DatabaseSchemaImpl();
+        DatabaseSchemaImpl databaseSchema = DatabaseSchemaImpl.builder().build();
         databaseSchema.setTables((List<AbstractTable>) tables);
         databaseSchema.setName(name);
         databaseSchema.setId(id);
@@ -124,7 +124,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected DatabaseCatalog createCatalog(List<? extends DatabaseSchema> schemas, List<? extends Link> links) {
-        DatabaseCatalogImpl databaseCatalog = new DatabaseCatalogImpl();
+        DatabaseCatalogImpl databaseCatalog = DatabaseCatalogImpl.builder().build();
         databaseCatalog.setSchemas((List<DatabaseSchemaImpl>) schemas);
         databaseCatalog.setLinks((List<LinkImpl>) links);
         return databaseCatalog;
@@ -132,7 +132,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected SqlStatement createSqlStatement(List<String> dialects, String sql) {
-        SqlStatementImpl sqlStatement = new SqlStatementImpl();
+        SqlStatementImpl sqlStatement = SqlStatementImpl.builder().build();
         sqlStatement.setDialects(dialects);
         sqlStatement.setSql(sql);
         return sqlStatement;
@@ -144,7 +144,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String name, List<? extends Column> columns, DatabaseSchema schema,
         String description, List<? extends SqlStatement> sqlStatements
     ) {
-        SqlViewImpl sqlView = new SqlViewImpl();
+        SqlViewImpl sqlView = SqlViewImpl.builder().build();
         sqlView.setName(name);
         sqlView.setColumns((List<ColumnImpl>) columns);
         sqlView.setSchema((DatabaseSchemaImpl) schema);
@@ -159,7 +159,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String name, List<? extends Column> columns, DatabaseSchema schema,
         String description, List<? extends Row> rows
     ) {
-        InlineTableImpl inlineTable = new InlineTableImpl();
+        InlineTableImpl inlineTable = InlineTableImpl.builder().build();
         inlineTable.setName(name);
         inlineTable.setColumns((List<ColumnImpl>) columns);
         inlineTable.setSchema((DatabaseSchemaImpl) schema);
@@ -170,7 +170,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected RowValue createRowValue(Column column, String value) {
-        RowValueImpl rowValue = new RowValueImpl();
+        RowValueImpl rowValue = RowValueImpl.builder().build();
         rowValue.setColumn(column);
         rowValue.setValue(value);
         return rowValue;
@@ -178,7 +178,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected Row createRow(List<? extends RowValue> rowValues) {
-        RowImpl row = new RowImpl();
+        RowImpl row = RowImpl.builder().build();
         row.setRowValues(rowValues);
         return row;
     }

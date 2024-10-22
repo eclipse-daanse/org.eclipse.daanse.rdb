@@ -21,6 +21,10 @@ public class RowImpl implements Row {
 
     private List<? extends RowValue> rowValues;
 
+    public RowImpl(Builder builder) {
+        this.rowValues = builder.rowValues;
+    }
+
     @Override
     public List<? extends RowValue> getRowValues() {
         return rowValues;
@@ -30,4 +34,21 @@ public class RowImpl implements Row {
         this.rowValues = rowValues;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+
+        private List<? extends RowValue> rowValues;
+
+        public Builder withRowValues(List<? extends RowValue> rowValues) {
+            this.rowValues = rowValues;
+            return this;
+        }
+
+        public RowImpl build() {
+            return new RowImpl(this);
+        }
+    }
 }
