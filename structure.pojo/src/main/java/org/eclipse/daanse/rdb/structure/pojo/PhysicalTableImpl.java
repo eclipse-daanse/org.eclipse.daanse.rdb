@@ -13,15 +13,17 @@
  */
 package org.eclipse.daanse.rdb.structure.pojo;
 
+import java.util.List;
+
 import org.eclipse.daanse.rdb.structure.api.model.PhysicalTable;
 
 public class PhysicalTableImpl extends AbstractTable implements PhysicalTable {
 
     public PhysicalTableImpl(Builder builder) {
-        setName(builder.getName());
-        setColumns(builder.getColumns());
-        setSchema(builder.getSchema());
-        setDescription(builder.getDescription());
+        setName(builder.name);
+        setColumns(builder.columns);
+        setSchema(builder.schema);
+        setDescription(builder.description);
     }
 
     public static Builder builder() {
@@ -31,6 +33,26 @@ public class PhysicalTableImpl extends AbstractTable implements PhysicalTable {
     public static final class Builder extends AbstractBuilder {
 
         private Builder() {
+        }
+
+        public AbstractBuilder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public AbstractBuilder withColumns(List<ColumnImpl> columns) {
+            this.columns = columns;
+            return this;
+        }
+
+        public AbstractBuilder withsSchema(DatabaseSchemaImpl schema) {
+            this.schema = schema;
+            return this;
+        }
+
+        public AbstractBuilder withsDdescription(String description) {
+            this.description = description;
+            return this;
         }
 
         public PhysicalTableImpl build() {

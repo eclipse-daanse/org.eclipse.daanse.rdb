@@ -22,10 +22,10 @@ public class SqlViewImpl extends AbstractTable implements SqlView {
     private List<? extends SqlStatement> sqlStatements;
 
     public SqlViewImpl(Builder builder) {
-        setName(builder.getName());
-        setColumns(builder.getColumns());
-        setSchema(builder.getSchema());
-        setDescription(builder.getDescription());
+        setName(builder.name);
+        setColumns(builder.columns);
+        setSchema(builder.schema);
+        setDescription(builder.description);
         setSqlStatements(builder.sqlStatements);
     }
 
@@ -47,6 +47,26 @@ public class SqlViewImpl extends AbstractTable implements SqlView {
         private List<? extends SqlStatement> sqlStatements;
 
         private Builder() {
+        }
+
+        public AbstractBuilder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public AbstractBuilder withColumns(List<ColumnImpl> columns) {
+            this.columns = columns;
+            return this;
+        }
+
+        public AbstractBuilder withsSchema(DatabaseSchemaImpl schema) {
+            this.schema = schema;
+            return this;
+        }
+
+        public AbstractBuilder withsDdescription(String description) {
+            this.description = description;
+            return this;
         }
 
         public Builder withRows(List<? extends SqlStatement> sqlStatements) {

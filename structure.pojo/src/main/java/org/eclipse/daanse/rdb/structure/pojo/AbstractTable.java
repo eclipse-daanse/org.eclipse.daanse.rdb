@@ -61,49 +61,13 @@ public abstract class AbstractTable implements Table {
 
     public static abstract class AbstractBuilder {
 
-        private String name;
+        protected String name;
 
-        private List<ColumnImpl> columns;
+        protected List<ColumnImpl> columns;
 
-        private DatabaseSchemaImpl schema;
+        protected DatabaseSchemaImpl schema;
 
-        private String description;
-
-        public AbstractBuilder withName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public AbstractBuilder withColumns(List<ColumnImpl> columns) {
-            this.columns = columns;
-            return this;
-        }
-
-        public AbstractBuilder withsSchema(DatabaseSchemaImpl schema) {
-            this.schema = schema;
-            return this;
-        }
-
-        public AbstractBuilder withsDdescription(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public List<ColumnImpl> getColumns() {
-            return columns;
-        }
-
-        public DatabaseSchemaImpl getSchema() {
-            return schema;
-        }
-
-        public String getDescription() {
-            return description;
-        }
+        protected String description;
     }
 
 }

@@ -42,15 +42,7 @@ public class InlineTableImpl extends AbstractTable implements InlineTable {
         this.rows = rows;
     }
 
-    public static final class Builder {
-
-        private String name;
-
-        private List<ColumnImpl> columns;
-
-        private DatabaseSchemaImpl schema;
-
-        private String description;
+    public static final class Builder extends AbstractBuilder {
 
         private List<? extends Row> rows;
 
