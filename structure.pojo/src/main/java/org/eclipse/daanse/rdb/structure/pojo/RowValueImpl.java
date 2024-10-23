@@ -57,7 +57,7 @@ public class RowValueImpl implements RowValue {
             return this;
         }
 
-        public Builder withColumn(String value) {
+        public Builder withValue(String value) {
             this.value = value;
             return this;
         }
