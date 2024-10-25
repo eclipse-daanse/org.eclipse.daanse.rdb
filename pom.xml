@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<!--
+<?xml version="1.0" encoding="UTF-8"?><!--
 /*********************************************************************
 * Copyright (c) 2024 Contributors to the Eclipse Foundation.
 *
@@ -46,6 +45,8 @@
     <module>structure.modifier.emf</module>
     <module>dbcreator</module>
     <module>structure.reader</module>
+    <module>structure.check</module>
+    <module>structure.documentation</module>
   </modules>
 
 </project>
