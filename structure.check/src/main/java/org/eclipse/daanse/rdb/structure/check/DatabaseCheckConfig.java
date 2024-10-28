@@ -13,13 +13,14 @@
  */
 package org.eclipse.daanse.rdb.structure.check;
 
-import java.util.List;
+import org.osgi.service.metatype.annotations.AttributeDefinition;
+import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 
-import javax.sql.DataSource;
+@ObjectClassDefinition
+public interface DatabaseCheckConfig {
 
-import org.eclipse.daanse.rdb.structure.api.model.DatabaseCatalog;
-
-public interface CheckService {
-
-    List<VerificationResult> verify(DatabaseCatalog catalog, DataSource dataSource);
+    @AttributeDefinition(description = "schemaRequired")
+    default Boolean isSchemaRequired() {
+        return true;
+    }
 }
