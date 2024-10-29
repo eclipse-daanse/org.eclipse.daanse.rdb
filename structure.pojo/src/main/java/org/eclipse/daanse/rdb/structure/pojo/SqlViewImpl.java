@@ -49,7 +49,7 @@ public class SqlViewImpl extends AbstractTable implements SqlView {
         private Builder() {
         }
 
-        public Builder withRows(List<? extends SqlStatement> sqlStatements) {
+        public Builder withSqlStatements(List<? extends SqlStatement> sqlStatements) {
             this.sqlStatements = sqlStatements;
             return this;
         }
