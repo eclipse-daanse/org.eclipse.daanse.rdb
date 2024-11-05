@@ -114,7 +114,7 @@ public class ColumnImpl implements Column {
             return this;
         }
 
-        public Builder withTypeQualifiers(String description) {
+        public Builder withDescription(String description) {
             this.description = description;
             return this;
         }
