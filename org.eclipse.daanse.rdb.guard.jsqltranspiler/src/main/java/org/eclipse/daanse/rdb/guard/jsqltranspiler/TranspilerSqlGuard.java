@@ -79,9 +79,7 @@ public class TranspilerSqlGuard implements SqlGuard {
                 JdbcResultSetMetaData s = select.accept((SelectVisitor<JdbcResultSetMetaData>) resolver,
                         JdbcMetaData.copyOf(jdbcMetaDataToCopy));
 
-
                 // TODO: a visitor thatlooks up all functions
-
 
                 // TODO: lookup all used columns if they are of type system table in rdb
 
@@ -89,6 +87,7 @@ public class TranspilerSqlGuard implements SqlGuard {
                 Set<String> unresolvedObjects = resolver.getUnresolvedObjects();
 
                 if (!unresolvedObjects.isEmpty()) {
+                    // TODO: may sleep here because this might be an attac
                     throw new UnresolvableObjectsGuardException(unresolvedObjects);
                 }
 
@@ -100,7 +99,8 @@ public class TranspilerSqlGuard implements SqlGuard {
             }
         } catch (JSQLParserException e) {
             LOGGER.error("sql parsing error :", e);
-            throw new UnparsableStatementGuardException();
+            // TODO: may sleep here because this might be an attac.
+            throw new UnallowedStatementTypeGuardException("Only Select statements allowed");
         }
 
     }

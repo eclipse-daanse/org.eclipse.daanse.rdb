@@ -21,7 +21,6 @@
   </parent>
   <artifactId>org.eclipse.daanse.rdb.guard.jsqltranspiler</artifactId>
 
-
   <dependencies>
 
     <dependency>
@@ -37,7 +36,7 @@
     <dependency>
       <groupId>com.github.jsqlparser</groupId>
       <artifactId>jsqlparser</artifactId>
-      <version>5.0</version>
+      <version>5.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>ai.starlake.jsqltranspiler</groupId>

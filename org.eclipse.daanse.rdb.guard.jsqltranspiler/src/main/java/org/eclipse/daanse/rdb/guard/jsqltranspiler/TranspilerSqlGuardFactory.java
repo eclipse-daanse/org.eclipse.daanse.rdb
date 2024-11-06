@@ -13,6 +13,18 @@
  */
 package org.eclipse.daanse.rdb.guard.jsqltranspiler;
 
-public class TranspilerSqlGuardFactory {
+import org.eclipse.daanse.rdb.guard.api.SqlGuard;
+import org.eclipse.daanse.rdb.guard.api.SqlGuardFactory;
+import org.eclipse.daanse.rdb.structure.api.model.DatabaseCatalog;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.ServiceScope;
+
+@Component(scope = ServiceScope.SINGLETON)
+public class TranspilerSqlGuardFactory implements SqlGuardFactory {
+
+    @Override
+    public SqlGuard create(String currentCatalogName, String currentSchemaName, DatabaseCatalog databaseCatalog) {
+        return new TranspilerSqlGuard(currentCatalogName, currentSchemaName, databaseCatalog);
+    }
 
 }

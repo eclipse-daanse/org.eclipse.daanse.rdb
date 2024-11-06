@@ -1,0 +1,61 @@
+#*******************************************************************************
+# Copyright (c)  2004 Contributors to the Eclipse Foundation
+#
+# This program and the accompanying materials are made
+# available under the terms of the Eclipse Public License 2.0
+# which is available at https://www.eclipse.org/legal/epl-2.0/ 
+# 
+# SPDX-License-Identifier: EPL-2.0
+#
+#   Contributors:
+#	 SmartCity Jena - initial
+#	 Stefan Bischof (bipolis.org) - initial
+#*******************************************************************************
+
+-runstartlevel: \
+	order=sortbynameversion,\
+	begin=-1
+
+-runtrace: true
+
+-tester: biz.aQute.tester.junit-platform
+
+# JaCoCo calculates test coverage
+-runpath.jacoco:\
+	org.jacoco.agent,\
+	org.jacoco.agent.rt
+
+-runvm.coverage: -javaagent:${repo;org.jacoco.agent.rt}=destfile=${target-dir}/jacoco.exec
+-runvm.base: -DbasePath=${.}
+
+-runpath.log: \
+	ch.qos.logback.classic,\
+	ch.qos.logback.core,\
+	slf4j.api
+
+-runproperties.logback:\
+	org.osgi.framework.bootdelegation=org.mockito.internal.creation.bytebuddy.inject,\
+	logback.configurationFile=${project.build.testOutputDirectory}/logback-test.xml
+
+-runsystemcapabilities: ${native_capability}
+
+-resolve.effective: active
+
+
+-runfw: org.apache.felix.framework
+
+-runee: JavaSE-21
+
+-runrequires: \
+	bnd.identity;id='${project.artifactId}-tests',\
+	bnd.identity;id='${project.artifactId}'
+
+# -runbundles is calculated by the bnd-resolver-maven-plugin
+-runbundles: \
+	ai.starlake.transpiler;version='[0.7.0,0.7.1)',\
+	com.github.jsqlparser;version='[5.1.0,5.1.1)',\
+	json;version='[20240303.0.0,20240303.0.1)',\
+	org.eclipse.daanse.rdb.guard.api;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rdb.guard.jsqltranspiler;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rdb.guard.jsqltranspiler-tests;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rdb.structure.api;version='[0.0.1,0.0.2)'
