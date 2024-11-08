@@ -26,6 +26,8 @@ import org.eclipse.daanse.rdb.guard.api.UnresolvableObjectsGuardException;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseCatalog;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
 import org.eclipse.daanse.rdb.structure.api.model.Table;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import ai.starlake.transpiler.JSQLColumResolver;
 import ai.starlake.transpiler.schema.JdbcColumn;
@@ -42,6 +44,7 @@ import net.sf.jsqlparser.util.deparser.StatementDeParser;
 
 public class TranspilerSqlGuard implements SqlGuard {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(TranspilerSqlGuard.class);
     private JdbcMetaData jdbcMetaDataToCopy;
 
     public TranspilerSqlGuard(String currentCatalogName, String currentSchemaName, DatabaseCatalog databaseCatalog) {
@@ -96,7 +99,7 @@ public class TranspilerSqlGuard implements SqlGuard {
                 throw new UnallowedStatementTypeGuardException("Only Select statements allowed");
             }
         } catch (JSQLParserException e) {
-            e.printStackTrace();
+            LOGGER.error("sql parsing error :", e);
             throw new UnparsableStatementGuardException();
         }
 

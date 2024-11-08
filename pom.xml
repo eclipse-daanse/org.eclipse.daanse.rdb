@@ -33,8 +33,19 @@
     <emf.common.version>2.30.0</emf.common.version>
     <emf.ecore.version>2.36.0</emf.ecore.version>
     <emf.ecore.xmi.version>2.37.0</emf.ecore.xmi.version>
+    <slf4j.version>2.0.9</slf4j.version>
   </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+        <scope>compile</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <modules>
     <module>structure.api</module>
@@ -47,6 +58,18 @@
     <module>structure.reader</module>
     <module>structure.check</module>
     <module>structure.documentation</module>
+    <module>org.eclipse.daanse.rdb.guard.api</module>
+    <module>org.eclipse.daanse.rdb.guard.jsqltranspiler</module>
   </modules>
+
+  <repositories>
+    <repository>
+      <id>jsqltranspiler-snapshots</id>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+    </repository>
+  </repositories>
 
 </project>
