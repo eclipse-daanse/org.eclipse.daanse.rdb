@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 import org.eclipse.daanse.jdbc.db.api.schema.ColumnDefinition;
 import org.eclipse.daanse.jdbc.db.api.schema.ColumnReference;
@@ -139,17 +140,19 @@ public class DatabaseCreatorImpl implements DatabaseCreator {
 
         ColumnReference column = new ColumnReferenceR(table, c.getName());
         JDBCType dataType = JDBCType.valueOf(c.getType().toUpperCase());
-        Optional<Integer> columnSize = Optional.empty();
-        Optional<Integer> decimalDigits = Optional.empty();
-        if (c.getTypeQualifiers() != null) {
-            if (c.getTypeQualifiers().size() > 0) {
-                columnSize = Optional.ofNullable(Integer.parseInt(c.getTypeQualifiers().get(0)));
-            }
-            if (c.getTypeQualifiers().size() > 1) {
-                decimalDigits = Optional.ofNullable(Integer.parseInt(c.getTypeQualifiers().get(1)));
-            }
-        }
-        ColumnMetaDataR columnType = new ColumnMetaDataR(dataType, columnSize, decimalDigits, Optional.empty());
+//        Optional<Integer> columnSize = column;
+//        Optional<Integer> decimalDigits = Optional.empty();
+//        if (c.getTypeQualifiers() != null) {
+//            if (c.getTypeQualifiers().size() > 0) {
+//                columnSize = Optional.ofNullable(Integer.parseInt(c.getTypeQualifiers().get(0)));
+//            }
+//            if (c.getTypeQualifiers().size() > 1) {
+//                decimalDigits = Optional.ofNullable(Integer.parseInt(c.getTypeQualifiers().get(1)));
+//            }
+//        }
+        //TODO FIX
+        ColumnMetaDataR columnType = new ColumnMetaDataR(dataType, "foobar", OptionalInt.empty(), OptionalInt.empty(),
+                OptionalInt.empty(), OptionalInt.empty(), OptionalInt.empty(), Optional.empty());
         return new ColumnDefinitionR(column, columnType);
     }
 

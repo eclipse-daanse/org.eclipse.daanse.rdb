@@ -56,14 +56,13 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected Column createColumn(
-        String name, Table table, String type, List<String> typeQualifiers,
+        String name, Table table, String type,
         String description
     ) {
         ColumnImpl column = ColumnImpl.builder().build();
         column.setName(name);
         column.setTable(table);
         column.setType(type);
-        column.setTypeQualifiers(typeQualifiers);
         column.setDescription(description);
         return column;
 

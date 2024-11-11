@@ -66,11 +66,11 @@
 	net.bytebuddy.byte-buddy;version='[1.14.16,1.14.17)',\
 	org.apache.felix.configadmin;version='[1.9.26,1.9.27)',\
 	org.apache.felix.scr;version='[2.2.10,2.2.11)',\
-	org.eclipse.daanse.emf.model.rdbstructure;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.jdbc.db.api;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.jdbc.db.core;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.jdbc.db.record;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rdb.structure.api;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rdb.structure.emf;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rdb.structure.reader;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rdb.structure.reader-tests;version='[0.0.1,0.0.2)',\
 	org.eclipse.emf.common;version='[2.30.0,2.30.1)',\

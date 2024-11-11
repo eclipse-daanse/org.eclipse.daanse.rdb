@@ -19,21 +19,24 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 
-import org.eclipse.daanse.emf.model.rdbstructure.Column;
-import org.eclipse.daanse.emf.model.rdbstructure.DatabaseCatalog;
-import org.eclipse.daanse.emf.model.rdbstructure.DatabaseSchema;
-import org.eclipse.daanse.emf.model.rdbstructure.Link;
-import org.eclipse.daanse.emf.model.rdbstructure.RelationalDatabaseFactory;
-import org.eclipse.daanse.emf.model.rdbstructure.Table;
+import javax.sql.RowSetMetaData;
+
 import org.eclipse.daanse.jdbc.db.api.meta.MetaInfo;
 import org.eclipse.daanse.jdbc.db.api.meta.StructureInfo;
 import org.eclipse.daanse.jdbc.db.api.schema.ColumnDefinition;
 import org.eclipse.daanse.jdbc.db.api.schema.ImportedKey;
 import org.eclipse.daanse.jdbc.db.api.schema.SchemaReference;
 import org.eclipse.daanse.jdbc.db.api.schema.TableDefinition;
+import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column;
+import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseCatalog;
+import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema;
+import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Link;
+import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
+import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Table;
 
 public class EmfRdbProvider implements Supplier<DatabaseCatalog> {
 
@@ -51,9 +54,7 @@ public class EmfRdbProvider implements Supplier<DatabaseCatalog> {
 
     private DatabaseCatalog getDatabaseCatalog() {
         try {
-            org.eclipse.daanse.emf.model.rdbstructure.DatabaseCatalog databaseCatalog =
-                RelationalDatabaseFactory.eINSTANCE
-                    .createDatabaseCatalog();
+            DatabaseCatalog databaseCatalog = RelationalDatabaseFactory.eINSTANCE.createDatabaseCatalog();
             Collection<? extends DatabaseSchema> schemas = getSchemas();
             Collection<? extends Link> links = getLinks(schemas);
             databaseCatalog.getSchemas().addAll(schemas);
@@ -67,12 +68,14 @@ public class EmfRdbProvider implements Supplier<DatabaseCatalog> {
     private Collection<? extends Link> getLinks(Collection<? extends DatabaseSchema> schemas) throws SQLException {
         List<Link> links = new ArrayList<>();
         for (ImportedKey importedKey : structureInfo.importedKeys()) {
-            if (importedKey.primaryKeyColumn() != null && importedKey.primaryKeyColumn().table() != null && importedKey.primaryKeyColumn().table().isPresent()
-                && importedKey.primaryKeyColumn().table().get().schema().isPresent()
-                && importedKey.foreignKeyColumn() != null && importedKey.foreignKeyColumn().table() != null && importedKey.foreignKeyColumn().table().isPresent()) {
+            if (importedKey.primaryKeyColumn() != null && importedKey.primaryKeyColumn().table() != null
+                    && importedKey.primaryKeyColumn().table().isPresent()
+                    && importedKey.primaryKeyColumn().table().get().schema().isPresent()
+                    && importedKey.foreignKeyColumn() != null && importedKey.foreignKeyColumn().table() != null
+                    && importedKey.foreignKeyColumn().table().isPresent()) {
                 SchemaReference schema = importedKey.primaryKeyColumn().table().get().schema().get();
-                Optional<? extends DatabaseSchema> oSchema =
-                    schemas.stream().filter(s -> s.getName().equals(schema.name())).findFirst();
+                Optional<? extends DatabaseSchema> oSchema = schemas.stream()
+                        .filter(s -> s.getName().equals(schema.name())).findFirst();
                 if (oSchema.isPresent()) {
                     final String tableNamePk = importedKey.primaryKeyColumn().table().get().name();
                     final String columNamePk = importedKey.primaryKeyColumn().name();
@@ -127,7 +130,8 @@ public class EmfRdbProvider implements Supplier<DatabaseCatalog> {
     private Collection<? extends Table> getTables(String catalog, String schemaName, DatabaseSchema databaseSchema) {
         List<Table> tabes = new ArrayList<>();
         for (TableDefinition tableDefinition : structureInfo.tables()) {
-            if (tableDefinition.table().schema().isPresent() && tableDefinition.table().schema().get().name().equals(schemaName)) {
+            if (tableDefinition.table().schema().isPresent()
+                    && tableDefinition.table().schema().get().name().equals(schemaName)) {
                 final String tableName = tableDefinition.table().name();
                 final String tableType = tableDefinition.table().type();
                 if (tableType.equals("TABLE")) {
@@ -166,30 +170,28 @@ public class EmfRdbProvider implements Supplier<DatabaseCatalog> {
     public List<Column> getColumns(String catalog, String schema, String tableName, Table table) {
         List<Column> columns = new ArrayList<>();
         for (ColumnDefinition columnDefinition : structureInfo.columns()) {
-            if (columnDefinition.column().table() != null
-                && columnDefinition.column().table().isPresent()
-                && columnDefinition.column().table().get().name().equals(tableName)
-                && columnDefinition.column().table().get().schema().isPresent()
-                && columnDefinition.column().table().get().schema().get().name().equals(schema)
-            ) {
+            if (columnDefinition.column().table() != null && columnDefinition.column().table().isPresent()
+                    && columnDefinition.column().table().get().name().equals(tableName)
+                    && columnDefinition.column().table().get().schema().isPresent()
+                    && columnDefinition.column().table().get().schema().get().name().equals(schema)) {
                 final String columName = columnDefinition.column().name();
                 JDBCType jdbcType = columnDefinition.columnMetaData().dataType();
-                final Optional<Integer> columnSize = columnDefinition.columnMetaData().columnSize();
-                final Optional<Integer> decimalDigits = columnDefinition.columnMetaData().decimalDigits();
+                final OptionalInt columnSize = columnDefinition.columnMetaData().columnSize();
+                final OptionalInt decimalDigits = columnDefinition.columnMetaData().decimalDigits();
+                final OptionalInt numPrecRadix = columnDefinition.columnMetaData().numPrecRadix();
+                final OptionalInt nullable = columnDefinition.columnMetaData().nullable();
+                final OptionalInt charOctetLength = columnDefinition.columnMetaData().charOctetLength();
 
                 Column column = RelationalDatabaseFactory.eINSTANCE.createColumn();
                 column.setName(columName);
                 column.setType(jdbcType.getName().toLowerCase());
                 column.setTable(table);
-                ArrayList<String> typeQualifiers = new ArrayList<>();
-                if (columnSize.isPresent() && columnSize.get() > 0) {
-                    typeQualifiers.add(columnSize.get().toString());
-                    if (decimalDigits.isPresent()) {
-                        typeQualifiers.add(decimalDigits.get().toString());
-                    }
-                }
-                column.getTypeQualifiers().addAll(typeQualifiers);
-                column.setDescription("");
+                decimalDigits.ifPresent(i -> column.setDecimalDigits(i));
+                columnSize.ifPresent(i -> column.setColumnSize(i));
+                numPrecRadix.ifPresent(i -> column.setNumPrecRadix(i));
+                charOctetLength.ifPresent(i -> column.setCharOctetLength(i));
+                nullable.ifPresent(i -> column.setNullable(i == RowSetMetaData.columnNullable));
+                column.setDescription(columnDefinition.columnMetaData().remarks().orElse(null));
                 columns.add(column);
 
             }

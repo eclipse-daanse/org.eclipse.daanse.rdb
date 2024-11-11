@@ -83,24 +83,19 @@ public abstract class AbstractMappingModifier implements DatabaseStructureProvid
             String name = columnName(column);
             Table table = columnTable(column);
             String type = columnType(column);
-            List<String> typeQualifiers = columnTypeQualifiers(column);
             String description = columnDescription(column);
-            return createColumn(name, table, type, typeQualifiers, description);
+            return createColumn(name, table, type, description);
         }
         return null;
     }
 
     protected abstract Column createColumn(
-        String name, Table table, String type, List<String> typeQualifiers,
+        String name, Table table, String type,
         String description
     );
 
     protected String columnDescription(Column column) {
         return column.getDescription();
-    }
-
-    protected List<String> columnTypeQualifiers(Column column) {
-        return typeQualifiers(column.getTypeQualifiers());
     }
 
     protected List<String> typeQualifiers(List<String> typeQualifiers) {
@@ -340,7 +335,4 @@ public abstract class AbstractMappingModifier implements DatabaseStructureProvid
             return schemas.stream().map(this::databaseSchema).toList();
         }
         return null;
-    }
-
-
-}
+    }}

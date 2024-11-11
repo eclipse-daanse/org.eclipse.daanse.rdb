@@ -13,8 +13,6 @@
 */
 package org.eclipse.daanse.rdb.structure.api.model;
 
-import java.util.List;
-
 public interface Column {
 
     String getName();
@@ -23,7 +21,15 @@ public interface Column {
 
     String getType();
 
-    List<String> getTypeQualifiers();
+    Integer getColumnSize();
+
+    Integer getDecimalDigits();
+
+    Integer getNumPrecRadix();
+
+    Integer getCharOctetLength();
+
+    Boolean getNullable();
 
     String getDescription();
 

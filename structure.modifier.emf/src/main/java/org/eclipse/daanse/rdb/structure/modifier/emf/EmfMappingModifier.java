@@ -44,14 +44,12 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected Column createColumn(String name, Table table, String type, List<String> typeQualifiers,
-            String description) {
+    protected Column createColumn(String name, Table table, String type, String description) {
         org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column column = RelationalDatabaseFactory.eINSTANCE
                 .createColumn();
         column.setName(name);
         column.setTable((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Table) table);
         column.setType(type);
-        column.getTypeQualifiers().addAll(typeQualifiers);
         column.setDescription(description);
         return column;
     }

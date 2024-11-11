@@ -27,7 +27,7 @@
           name="c1n"
           type="varchar"
           foreignLinks="//@links.0">
-        <typeQualifiers>255</typeQualifiers>
+        <columnSize>255</columnSize>
       </columns>
     </tables>
     <tables
@@ -38,7 +38,7 @@
           id="c2"
           name="c2n"
           type="varchar">
-        <typeQualifiers>255</typeQualifiers>
+        <columnSize>255</columnSize>
       </columns>
     </tables>
   </schemas>

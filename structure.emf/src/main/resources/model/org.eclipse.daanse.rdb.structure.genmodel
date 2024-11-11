@@ -42,11 +42,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/typeQualifiers"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/columnSize"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/description"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Column/table"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Column/primaryLinks"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Column/foreignLinks"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/decimalDigits"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/charOctetLength"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/numPrecRadix"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/nullable"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//Link">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Link/primaryKey"/>

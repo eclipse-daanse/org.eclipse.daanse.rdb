@@ -13,8 +13,6 @@
  */
 package org.eclipse.daanse.rdb.structure.pojo;
 
-import java.util.List;
-
 import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rdb.structure.api.model.Table;
 
@@ -24,7 +22,11 @@ public class ColumnImpl implements Column {
         this.name = builder.name;
         this.table = builder.table;
         this.type = builder.type;
-        this.typeQualifiers = builder.typeQualifiers;
+        this.nullable = builder.nullable;
+        this.charOctetLength = builder.charOctetLength;
+        this.numPrecRadix = builder.numPrecRadix;
+        this.columnSize = builder.columnSize;
+        this.decimalDigits = builder.decimalDigits;
         this.description = builder.description;
     }
 
@@ -52,12 +54,24 @@ public class ColumnImpl implements Column {
         this.type = type;
     }
 
-    public List<String> getTypeQualifiers() {
-        return typeQualifiers;
+    public void setNullable(boolean nullable) {
+        this.nullable = nullable;
     }
 
-    public void setTypeQualifiers(List<String> typeQualifiers) {
-        this.typeQualifiers = typeQualifiers;
+    public void setCharOctetLength(int charOctetLength) {
+        this.charOctetLength = charOctetLength;
+    }
+
+    public void setNumPrecRadix(int numPrecRadix) {
+        this.numPrecRadix = numPrecRadix;
+    }
+
+    public void setColumnSize(Integer columnSize) {
+        this.columnSize = columnSize;
+    }
+
+    public void setDecimalDigits(Integer decimalDigits) {
+        this.decimalDigits = decimalDigits;
     }
 
     public String getDescription() {
@@ -74,7 +88,15 @@ public class ColumnImpl implements Column {
 
     private String type;
 
-    private List<String> typeQualifiers;
+    private boolean nullable;
+
+    private int charOctetLength;
+
+    private int numPrecRadix;
+
+    private Integer columnSize;
+
+    private Integer decimalDigits;
 
     private String description;
 
@@ -90,9 +112,17 @@ public class ColumnImpl implements Column {
 
         private String type;
 
-        private List<String> typeQualifiers;
-
         private String description;
+
+        private boolean nullable;
+
+        private int charOctetLength;
+
+        private int numPrecRadix;
+
+        private Integer columnSize;
+
+        private Integer decimalDigits;
 
         public Builder withName(String name) {
             this.name = name;
@@ -109,8 +139,28 @@ public class ColumnImpl implements Column {
             return this;
         }
 
-        public Builder withTypeQualifiers(List<String> typeQualifiers) {
-            this.typeQualifiers = typeQualifiers;
+        public Builder withDecimalDigits(Integer decimalDigits) {
+            this.decimalDigits = decimalDigits;
+            return this;
+        }
+
+        public Builder withColumnSize(Integer columnSize) {
+            this.columnSize = columnSize;
+            return this;
+        }
+
+        public Builder withNumPrecRadix(int numPrecRadix) {
+            this.numPrecRadix = numPrecRadix;
+            return this;
+        }
+
+        public Builder withCharOctetLength(int charOctetLength) {
+            this.charOctetLength = charOctetLength;
+            return this;
+        }
+
+        public Builder withNullable(boolean nullable) {
+            this.nullable = nullable;
             return this;
         }
 
@@ -122,6 +172,31 @@ public class ColumnImpl implements Column {
         public ColumnImpl build() {
             return new ColumnImpl(this);
         }
+    }
+
+    @Override
+    public Integer getColumnSize() {
+        return columnSize;
+    }
+
+    @Override
+    public Integer getDecimalDigits() {
+        return decimalDigits;
+    }
+
+    @Override
+    public Integer getNumPrecRadix() {
+        return numPrecRadix;
+    }
+
+    @Override
+    public Integer getCharOctetLength() {
+        return charOctetLength;
+    }
+
+    @Override
+    public Boolean getNullable() {
+        return nullable;
     }
 
 }
