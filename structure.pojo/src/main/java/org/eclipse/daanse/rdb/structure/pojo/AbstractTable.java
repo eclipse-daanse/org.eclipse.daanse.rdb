@@ -59,7 +59,7 @@ public abstract class AbstractTable implements Table {
 
     private String description;
 
-    public static abstract class AbstractBuilder {
+    public static abstract class AbstractBuilder<B extends AbstractBuilder<B>> {
 
         private String name;
 
@@ -69,24 +69,24 @@ public abstract class AbstractTable implements Table {
 
         private String description;
 
-        public AbstractBuilder withName(String name) {
+        public B withName(String name) {
             this.name = name;
-            return this;
+            return (B) this;
         }
 
-        public AbstractBuilder withColumns(List<ColumnImpl> columns) {
+        public B withColumns(List<ColumnImpl> columns) {
             this.columns = columns;
-            return this;
+            return (B) this;
         }
 
-        public AbstractBuilder withsSchema(DatabaseSchemaImpl schema) {
+        public B withsSchema(DatabaseSchemaImpl schema) {
             this.schema = schema;
-            return this;
+            return (B) this;
         }
 
-        public AbstractBuilder withsDdescription(String description) {
+        public B withsDdescription(String description) {
             this.description = description;
-            return this;
+            return (B) this;
         }
 
         public String getName() {

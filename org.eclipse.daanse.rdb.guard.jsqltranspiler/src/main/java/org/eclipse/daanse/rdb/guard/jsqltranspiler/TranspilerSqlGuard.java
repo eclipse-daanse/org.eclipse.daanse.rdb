@@ -21,7 +21,6 @@ import org.eclipse.daanse.rdb.guard.api.EmptyStatementGuardException;
 import org.eclipse.daanse.rdb.guard.api.GuardException;
 import org.eclipse.daanse.rdb.guard.api.SqlGuard;
 import org.eclipse.daanse.rdb.guard.api.UnallowedStatementTypeGuardException;
-import org.eclipse.daanse.rdb.guard.api.UnparsableStatementGuardException;
 import org.eclipse.daanse.rdb.guard.api.UnresolvableObjectsGuardException;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseCatalog;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;

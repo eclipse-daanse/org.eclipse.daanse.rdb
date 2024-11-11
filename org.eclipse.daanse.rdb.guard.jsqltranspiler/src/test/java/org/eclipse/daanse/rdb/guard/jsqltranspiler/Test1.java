@@ -14,11 +14,17 @@
 
 package org.eclipse.daanse.rdb.guard.jsqltranspiler;
 
-import static org.mockito.Mockito.mock;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
 
 import org.eclipse.daanse.rdb.guard.api.SqlGuard;
 import org.eclipse.daanse.rdb.guard.api.SqlGuardFactory;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseCatalog;
+import org.eclipse.daanse.rdb.structure.pojo.ColumnImpl;
+import org.eclipse.daanse.rdb.structure.pojo.DatabaseCatalogImpl;
+import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
+import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.junit.jupiter.api.Test;
 import org.osgi.test.common.annotation.InjectService;
 
@@ -26,9 +32,21 @@ public class Test1 {
 
     @Test
     void testName(@InjectService SqlGuardFactory sqlGuardFactory) throws Exception {
-        DatabaseCatalog databaseCatalog = mock(DatabaseCatalog.class);
-        // TODO: mock against rdb.structure.api not use an impl.
-        SqlGuard guard = sqlGuardFactory.create(null, "currentSchemaName", databaseCatalog);
-        // guard.guard("select bar from foo");
+        ColumnImpl colBar = ColumnImpl.builder().withName("bar").build();
+        ColumnImpl colBuzz = ColumnImpl.builder().withName("buzz").build();
+        PhysicalTableImpl table = PhysicalTableImpl.builder().withName("foo").withColumns(List.of(colBar, colBuzz))
+                .build();
+
+        DatabaseSchemaImpl databaseSchema = DatabaseSchemaImpl.builder().withName("sch").withTables(List.of(table))
+                .build();
+
+        DatabaseCatalog databaseCatalog = DatabaseCatalogImpl.builder().withSchemas(List.of(databaseSchema)).build();
+
+        SqlGuard guard = sqlGuardFactory.create("", "sch", databaseCatalog);
+
+        String result = guard.guard("select * from foo");
+
+        assertThat(result)
+                .isEqualTo("SELECT sch.foo.bar /* Resolved Column*/ , sch.foo.buzz /* Resolved Column*/  FROM sch.foo");
     }
 }

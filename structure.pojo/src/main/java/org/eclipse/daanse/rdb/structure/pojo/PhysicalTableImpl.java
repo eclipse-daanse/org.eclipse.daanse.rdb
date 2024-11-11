@@ -28,7 +28,7 @@ public class PhysicalTableImpl extends AbstractTable implements PhysicalTable {
         return new Builder();
     }
 
-    public static final class Builder extends AbstractBuilder {
+    public static final class Builder extends AbstractBuilder<Builder> {
 
         private Builder() {
         }
