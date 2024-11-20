@@ -134,7 +134,7 @@ public class EmfRdbProvider implements Supplier<DatabaseCatalog> {
                     && tableDefinition.table().schema().get().name().equals(schemaName)) {
                 final String tableName = tableDefinition.table().name();
                 final String tableType = tableDefinition.table().type();
-                if (tableType.equals("TABLE")) {
+                if (tableType.equals("TABLE") || tableType.equals("BASE TABLE")) {
                     Table table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
                     Collection<? extends Column> columns = getColumns(catalog, schemaName, tableName, table);
                     table.setName(tableName);
@@ -172,8 +172,9 @@ public class EmfRdbProvider implements Supplier<DatabaseCatalog> {
         for (ColumnDefinition columnDefinition : structureInfo.columns()) {
             if (columnDefinition.column().table() != null && columnDefinition.column().table().isPresent()
                     && columnDefinition.column().table().get().name().equals(tableName)
-                    && columnDefinition.column().table().get().schema().isPresent()
-                    && columnDefinition.column().table().get().schema().get().name().equals(schema)) {
+                    //&& columnDefinition.column().table().get().schema().isPresent()
+                    //&& columnDefinition.column().table().get().schema().get().name().equals(schema)
+            ) {
                 final String columName = columnDefinition.column().name();
                 JDBCType jdbcType = columnDefinition.columnMetaData().dataType();
                 final OptionalInt columnSize = columnDefinition.columnMetaData().columnSize();
