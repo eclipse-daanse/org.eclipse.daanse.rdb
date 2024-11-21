@@ -172,8 +172,8 @@ public class EmfRdbProvider implements Supplier<DatabaseCatalog> {
         for (ColumnDefinition columnDefinition : structureInfo.columns()) {
             if (columnDefinition.column().table() != null && columnDefinition.column().table().isPresent()
                     && columnDefinition.column().table().get().name().equals(tableName)
-                    //&& columnDefinition.column().table().get().schema().isPresent()
-                    //&& columnDefinition.column().table().get().schema().get().name().equals(schema)
+                    && columnDefinition.column().table().get().schema().isPresent()
+                    && columnDefinition.column().table().get().schema().get().name().equals(schema)
             ) {
                 final String columName = columnDefinition.column().name();
                 JDBCType jdbcType = columnDefinition.columnMetaData().dataType();
