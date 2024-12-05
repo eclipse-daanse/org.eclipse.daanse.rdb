@@ -16,6 +16,10 @@
   <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
     <details key="qualified" value="true"/>
   </eAnnotations>
+  <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+    <details key="basePackage" value="org.eclipse.daanse.rdb.structure.emf"/>
+    <details key="prefix" value="RelationalDatabase"/>
+  </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="DatabaseCatalog" eSuperTypes="#//IDatabaseCatalog">
     <eStructuralFeatures xsi:type="ecore:EReference" name="schemas" upperBound="-1"
         eType="#//DatabaseSchema" containment="true"/>
