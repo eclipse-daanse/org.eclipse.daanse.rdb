@@ -1,1 +1,3 @@
-Export-Package: net.sf.jsqlparser*
+Export-Package: \
+  net.sf.jsqlparser*,\
+  ai.starlake.transpiler*
