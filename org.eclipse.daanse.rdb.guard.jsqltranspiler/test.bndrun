@@ -52,6 +52,7 @@
 
 # -runbundles is calculated by the bnd-resolver-maven-plugin
 -runbundles: \
+	ai.starlake.transpiler;version='[0.7.0,0.7.1)',\
 	json;version='[20250107.0.0,20250107.0.1)',\
 	junit-jupiter-api;version='[5.10.2,5.10.3)',\
 	junit-jupiter-engine;version='[5.10.2,5.10.3)',\
@@ -59,6 +60,7 @@
 	junit-platform-commons;version='[1.10.2,1.10.3)',\
 	junit-platform-engine;version='[1.10.2,1.10.3)',\
 	junit-platform-launcher;version='[1.10.2,1.10.3)',\
+	net.sf.jsqlparser;version='[5.2.0,5.2.1)',\
 	org.apache.felix.scr;version='[2.2.10,2.2.11)',\
 	org.eclipse.daanse.rdb.guard.api;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rdb.guard.jsqltranspiler;version='[0.0.1,0.0.2)',\
