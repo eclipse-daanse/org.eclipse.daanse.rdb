@@ -330,7 +330,7 @@ public class Test1 {
         SqlGuard guard = sqlGuardFactory.create("", SCH, databaseCatalog);
 
         String result = guard.guard(SQL_WITH_WRONG_TABLE);
-        //TODO
+        //TODO "select * from foo where foo.id in (select fooFact1.id from fooFact1)". table "fooFact1" is absent. we have only "fooFact" and "foo"
         //assertThrows(RuntimeException.class, () -> guard.guard("select * from foo where foo.id in (select fooFact1.id from fooFact1)"));
 
         assertEquals(
@@ -395,13 +395,12 @@ public class Test1 {
             assertEquals(String.format( SQL_WITH_AGG_EXPECTED, agg), result);
 
             assertThrows(TableNotDeclaredException.class, () -> guard.guard(String.format(SQL_WITH_AGG_WITH_WRONG_TABLE, agg)));
-            //assertEquals(String.format( SQL_WITH_AGG_WITH_WRONG_TABLE_EXPECTED, agg), result);
 
             result = guard.guard(String.format(SQL_WITH_HAVING, agg, agg));
             assertEquals(String.format(SQL_WITH_HAVING_EXPECTED, agg, agg), result);
 
             result = guard.guard(String.format(SQL_WITH_HAVING_WRONG_TABLE, agg, agg));
-            //TODO
+            //TODO "select avg(foo1.id) from foo group by foo.name")" with any aggregation use wrong table "foo1". we have foo table only
             //assertThrows(RuntimeException.class, () -> guard.guard("select avg(foo1.id) from foo group by foo.name"));
             assertEquals(String.format(SQL_WITH_HAVING_WRONG_TABLE_EXPECTED, agg, agg), result);
 
@@ -409,12 +408,12 @@ public class Test1 {
             assertEquals(String.format(SQL_WITH_HAVING1_EXPECTED, agg), result);
 
             result = guard.guard(String.format(SQL_WITH_HAVING_WRONG_TABLE1, agg));
-            //TODO
+            //TODO select sum(foo.id) from foo group by foo.name having foo1.name = 'tets' with any aggregation use wrong table "foo1". we have "foo" table only
             //assertThrows(RuntimeException.class, () -> guard.guard("select count(foo.id) from foo group by foo.name having foo1.name = 'tets'"));
             assertEquals(String.format(SQL_WITH_HAVING_WRONG_TABLE1_EXPECTED, agg), result);
 
             result = guard.guard(String.format(SQL_WITH_HAVING_WRONG_COLUMN, agg));
-            //TODO
+            //TODO select sum(foo.id) from foo group by foo.name having foo.name1 = 'tets' we use wrong column name1. name1 ia absent. we have "name" column only
             //assertThrows(RuntimeException.class, () -> guard.guard("select count(foo.id) from foo group by foo.name having foo.name1 = 'tets'"));
             assertEquals(String.format(SQL_WITH_HAVING_WRONG_COLUMN_EXPECTED, agg), result);
 
