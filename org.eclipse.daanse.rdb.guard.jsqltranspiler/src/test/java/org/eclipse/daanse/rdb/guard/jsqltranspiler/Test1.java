@@ -29,6 +29,8 @@ import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.junit.jupiter.api.Test;
 import org.osgi.test.common.annotation.InjectService;
 
+import ai.starlake.transpiler.TableNotDeclaredException;
+
 public class Test1 {
 
     private static final String FOO_FACT = "fooFact";
@@ -50,8 +52,6 @@ public class Test1 {
     private static final String SQL_WITH_FUNCTION_WRONG_COLUMN = "select trim(foo.name1)  from foo";
 
     private static final String SQL_WITH_FUNCTION_WRONG_TABLE = "select trim(foo1.name)  from foo";
-
-    private static final String SQL_WITH_FUNCTION_WRONG_TABLE_EXPECTED = "SELECT Trim( foo1.name ) FROM sch.foo";
 
     private static final String SQL_WITH_FUNCTION = "select trim(foo.name)  from foo";
 
@@ -89,9 +89,6 @@ public class Test1 {
 
     private static final String SQL_WITH_AGG_WITH_WRONG_TABLE = """
             select %s(foo1.id) from foo group by foo.name""";
-
-    private static final String SQL_WITH_AGG_WITH_WRONG_TABLE_EXPECTED = """
-            SELECT %s(foo1.id) FROM sch.foo GROUP BY foo.name""";
 
         private static final String SQL_WITH_AGG = """
                 select %s(foo.id)  from foo group by foo.name""";
@@ -397,10 +394,8 @@ public class Test1 {
             String result = guard.guard(String.format(SQL_WITH_AGG, agg));
             assertEquals(String.format( SQL_WITH_AGG_EXPECTED, agg), result);
 
-            result = guard.guard(String.format(SQL_WITH_AGG_WITH_WRONG_TABLE, agg));
-            //TODO
-            //assertThrows(RuntimeException.class, () -> guard.guard("select sum(foo1.id) from foo group by foo.name"));
-            assertEquals(String.format( SQL_WITH_AGG_WITH_WRONG_TABLE_EXPECTED, agg), result);
+            assertThrows(TableNotDeclaredException.class, () -> guard.guard(String.format(SQL_WITH_AGG_WITH_WRONG_TABLE, agg)));
+            //assertEquals(String.format( SQL_WITH_AGG_WITH_WRONG_TABLE_EXPECTED, agg), result);
 
             result = guard.guard(String.format(SQL_WITH_HAVING, agg, agg));
             assertEquals(String.format(SQL_WITH_HAVING_EXPECTED, agg, agg), result);
@@ -444,10 +439,7 @@ public class Test1 {
 
         assertEquals(SQL_WITH_FUNCTION_EXPECTED, result);
 
-        result = guard.guard(SQL_WITH_FUNCTION_WRONG_TABLE);
-        //TODO
-        //assertThrows(RuntimeException.class, () -> guard.guard("select trim(foo1.name)  from foo"));
-        assertEquals(SQL_WITH_FUNCTION_WRONG_TABLE_EXPECTED, result);
+        assertThrows(TableNotDeclaredException.class, () -> guard.guard(SQL_WITH_FUNCTION_WRONG_TABLE));
 
         assertThrows(org.eclipse.daanse.rdb.guard.api.UnresolvableObjectsGuardException.class, () -> guard.guard(SQL_WITH_FUNCTION_WRONG_COLUMN));
     }
