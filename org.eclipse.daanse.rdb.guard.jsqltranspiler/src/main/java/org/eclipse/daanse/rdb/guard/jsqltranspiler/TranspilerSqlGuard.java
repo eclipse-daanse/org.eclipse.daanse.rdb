@@ -114,7 +114,7 @@ public class TranspilerSqlGuard implements SqlGuard {
 
                 deParser.visit((Select) st);// or rewritten
 
-                return builder.toString();
+                return rewritten;
 
             } else {
                 throw new RuntimeException(st.getClass().getSimpleName().toUpperCase() + " is not permitted.");
