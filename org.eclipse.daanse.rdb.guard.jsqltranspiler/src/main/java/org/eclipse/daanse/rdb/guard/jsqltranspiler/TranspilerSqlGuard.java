@@ -15,30 +15,30 @@
 package org.eclipse.daanse.rdb.guard.jsqltranspiler;
 
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.daanse.rdb.guard.api.EmptyStatementGuardException;
 import org.eclipse.daanse.rdb.guard.api.GuardException;
 import org.eclipse.daanse.rdb.guard.api.SqlGuard;
-import org.eclipse.daanse.rdb.guard.api.UnallowedStatementTypeGuardException;
-import org.eclipse.daanse.rdb.guard.api.UnresolvableObjectsGuardException;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseCatalog;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
 import org.eclipse.daanse.rdb.structure.api.model.Table;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ai.starlake.transpiler.CatalogNotFoundException;
+import ai.starlake.transpiler.ColumnNotFoundException;
 import ai.starlake.transpiler.JSQLColumResolver;
+import ai.starlake.transpiler.JSQLResolver;
+import ai.starlake.transpiler.SchemaNotFoundException;
+import ai.starlake.transpiler.TableNotDeclaredException;
+import ai.starlake.transpiler.TableNotFoundException;
 import ai.starlake.transpiler.schema.JdbcColumn;
 import ai.starlake.transpiler.schema.JdbcMetaData;
-import ai.starlake.transpiler.schema.JdbcMetaData.ErrorMode;
-import ai.starlake.transpiler.schema.JdbcResultSetMetaData;
 import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.expression.Function;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
-import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
-import net.sf.jsqlparser.statement.select.SelectVisitor;
 import net.sf.jsqlparser.util.deparser.StatementDeParser;
 
 public class TranspilerSqlGuard implements SqlGuard {
@@ -55,51 +55,74 @@ public class TranspilerSqlGuard implements SqlGuard {
     @Override
     public String guard(String sqlStr) throws GuardException {
 
-        JSQLColumResolver resolver = new JSQLColumResolver(JdbcMetaData.copyOf(jdbcMetaDataToCopy));
+        StringBuilder builder = new StringBuilder();
+        StatementDeParser deParser = new StatementDeParser(builder);
 
+        JSQLResolver resolver = new JSQLResolver(jdbcMetaDataToCopy);
+
+        // this does not really work, when there are comments
+        // @todo: apply a Regex for SQL Comments
         if (sqlStr == null || sqlStr.trim().isEmpty()) {
             throw new EmptyStatementGuardException();
         }
 
-        StringBuilder builder = new StringBuilder();
-        StatementDeParser deParser = new StatementDeParser(builder);
-
-        Statement st;
         try {
-            st = CCJSqlParserUtil.parse(sqlStr);
+            Statement st = CCJSqlParserUtil.parse(sqlStr);
+
+            // we can test for SELECT, though in practise it won't protect us from harmful statements
             if (st instanceof Select) {
-                PlainSelect select = (PlainSelect) st;
+                resolver.resolve(st);
 
-                // do not fail direct. so we have access to all unresolved fields
-                // but do not add this fields als pseudo into the statement.
-                resolver.setErrorMode(ErrorMode.IGNORE);
-
-                // Resolves any AllColumns "*" or AllTableColumns "t.*" expression resolved into the actual columns
-                JdbcResultSetMetaData s = select.accept((SelectVisitor<JdbcResultSetMetaData>) resolver,
-                        JdbcMetaData.copyOf(jdbcMetaDataToCopy));
-
-                // TODO: a visitor thatlooks up all functions
-
-                // TODO: lookup all used columns if they are of type system table in rdb
-
-                System.out.println(s);
-                Set<String> unresolvedObjects = resolver.getUnresolvedObjects();
-
-                if (!unresolvedObjects.isEmpty()) {
-                    // TODO: may sleep here because this might be an attac
-                    throw new UnresolvableObjectsGuardException(unresolvedObjects);
+                // select columns should not be empty
+                final List<JdbcColumn> selectColumns = resolver.getSelectColumns();
+                if (selectColumns.isEmpty()) {
+                    throw new RuntimeException("Nothing was selected.");
                 }
 
-                st.accept(deParser);
+                // any delete columns must be empty
+                final List<JdbcColumn> deleteColumns = resolver.getDeleteColumns();
+                if (!deleteColumns.isEmpty()) {
+                    throw new RuntimeException("DELETE is not permitted.");
+                }
+
+                // any update columns must be empty
+                final List<JdbcColumn> updateColumns = resolver.getUpdateColumns();
+                if (!updateColumns.isEmpty()) {
+                    throw new RuntimeException("UPDATE is not permitted.");
+                }
+
+                // any insert columns must be empty
+                final List<JdbcColumn> insertColumns = resolver.getInsertColumns();
+                if (!insertColumns.isEmpty()) {
+                    throw new RuntimeException("INSERT is not permitted.");
+                }
+
+                // any insert columns must be empty
+//            final List<Function> allFunctions = resolver.getFunctions();
+                // TODO: Check Functions
+
+                // we can finally resolve for the actually returned columns
+                JSQLColumResolver columResolver = new JSQLColumResolver(jdbcMetaDataToCopy);
+                columResolver.setErrorMode(JdbcMetaData.ErrorMode.STRICT);
+
+                String rewritten = columResolver.getResolvedStatementText(sqlStr);
+                // TODO: get it as object and access to AST that we do not have to reparse
+                Statement stResolveds = CCJSqlParserUtil.parse(rewritten);
+
+                System.out.println(rewritten);
+                System.out.println(st);
+
+                deParser.visit((Select) st);// or rewritten
+
                 return builder.toString();
 
             } else {
-                throw new UnallowedStatementTypeGuardException("Only Select statements allowed");
+                throw new RuntimeException(st.getClass().getSimpleName().toUpperCase() + " is not permitted.");
             }
-        } catch (JSQLParserException e) {
-            LOGGER.error("sql parsing error :", e);
-            // TODO: may sleep here because this might be an attac.
-            throw new UnallowedStatementTypeGuardException("Only Select statements allowed");
+
+        } catch (CatalogNotFoundException | ColumnNotFoundException | SchemaNotFoundException
+                | TableNotDeclaredException | TableNotFoundException | JSQLParserException ex) {
+            throw new RuntimeException("Unresolvable Statement", ex);
         }
 
     }
