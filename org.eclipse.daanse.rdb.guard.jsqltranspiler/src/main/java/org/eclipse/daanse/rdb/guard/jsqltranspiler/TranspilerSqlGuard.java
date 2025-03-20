@@ -14,6 +14,7 @@
 
 package org.eclipse.daanse.rdb.guard.jsqltranspiler;
 
+import java.security.SecureRandom;
 import java.util.List;
 
 import org.eclipse.daanse.rdb.guard.api.EmptyStatementGuardException;
@@ -35,7 +36,6 @@ import ai.starlake.transpiler.TableNotFoundException;
 import ai.starlake.transpiler.schema.JdbcColumn;
 import ai.starlake.transpiler.schema.JdbcMetaData;
 import net.sf.jsqlparser.JSQLParserException;
-import net.sf.jsqlparser.expression.Function;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.select.Select;
@@ -109,6 +109,9 @@ public class TranspilerSqlGuard implements SqlGuard {
                 // TODO: get it as object and access to AST that we do not have to reparse
                 Statement stResolveds = CCJSqlParserUtil.parse(rewritten);
 
+                // TODO: check the count of functions and deepnes and size of statement. we should be able check on
+                // this variables if we allow statement or if it calls to much.
+
                 System.out.println(rewritten);
                 System.out.println(st);
 
@@ -122,6 +125,7 @@ public class TranspilerSqlGuard implements SqlGuard {
 
         } catch (CatalogNotFoundException | ColumnNotFoundException | SchemaNotFoundException
                 | TableNotDeclaredException | TableNotFoundException | JSQLParserException ex) {
+
             throw new RuntimeException("Unresolvable Statement", ex);
         }
 
