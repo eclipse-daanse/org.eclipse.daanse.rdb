@@ -11,12 +11,7 @@
  *   SmartCity Jena - initial
  *   Stefan Bischof (bipolis.org) - initial
  */
-package org.eclipse.daanse.rdb.guard.api;
 
-import org.eclipse.daanse.rdb.guard.api.exception.GuardException;
-
-public interface SqlGuard {
-
-    String guard(String sql) throws GuardException;
-
-}
+@org.osgi.annotation.bundle.Export
+@org.osgi.annotation.versioning.Version("0.0.1")
+package org.eclipse.daanse.rdb.guard.api.exception;

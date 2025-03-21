@@ -11,17 +11,13 @@
  *   SmartCity Jena - initial
  *   Stefan Bischof (bipolis.org) - initial
  */
-package org.eclipse.daanse.rdb.guard.api;
+package org.eclipse.daanse.rdb.guard.api.exception;
 
-public class UnparsableStatementGuardException extends GuardException {
+public class UnallowedStatementTypeGuardException extends GuardException {
 
     private static final long serialVersionUID = 1L;
 
-    public UnparsableStatementGuardException() {
-        this("Statement could not be parsed");
-    }
-
-    private UnparsableStatementGuardException(String message) {
+    public UnallowedStatementTypeGuardException(String message) {
 
         super(message);
     }

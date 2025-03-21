@@ -11,7 +11,7 @@
  *   SmartCity Jena - initial
  *   Stefan Bischof (bipolis.org) - initial
  */
-package org.eclipse.daanse.rdb.guard.api;
+package org.eclipse.daanse.rdb.guard.api.exception;
 
 public class GuardException extends Exception {
 

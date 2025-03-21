@@ -14,12 +14,14 @@
 
 package org.eclipse.daanse.rdb.guard.jsqltranspiler;
 
-import java.security.SecureRandom;
 import java.util.List;
 
-import org.eclipse.daanse.rdb.guard.api.EmptyStatementGuardException;
-import org.eclipse.daanse.rdb.guard.api.GuardException;
 import org.eclipse.daanse.rdb.guard.api.SqlGuard;
+import org.eclipse.daanse.rdb.guard.api.exception.EmptyStatementGuardException;
+import org.eclipse.daanse.rdb.guard.api.exception.GuardException;
+import org.eclipse.daanse.rdb.guard.api.exception.UnallowedStatementTypeGuardException;
+import org.eclipse.daanse.rdb.guard.api.exception.UnparsableStatementGuardException;
+import org.eclipse.daanse.rdb.guard.api.exception.UnresolvableObjectsGuardException;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseCatalog;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
 import org.eclipse.daanse.rdb.structure.api.model.Table;
@@ -120,13 +122,16 @@ public class TranspilerSqlGuard implements SqlGuard {
                 return rewritten;
 
             } else {
-                throw new RuntimeException(st.getClass().getSimpleName().toUpperCase() + " is not permitted.");
+                throw new UnallowedStatementTypeGuardException(
+                        st.getClass().getSimpleName().toUpperCase() + " is not permitted.");
             }
+        }
 
+        catch (JSQLParserException ex) {
+            throw new UnparsableStatementGuardException();
         } catch (CatalogNotFoundException | ColumnNotFoundException | SchemaNotFoundException
-                | TableNotDeclaredException | TableNotFoundException | JSQLParserException ex) {
-
-            throw new RuntimeException("Unresolvable Statement", ex);
+                | TableNotDeclaredException | TableNotFoundException ex) {
+            throw new UnresolvableObjectsGuardException(ex.getMessage());
         }
 
     }

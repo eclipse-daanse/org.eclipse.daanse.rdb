@@ -11,12 +11,19 @@
  *   SmartCity Jena - initial
  *   Stefan Bischof (bipolis.org) - initial
  */
-package org.eclipse.daanse.rdb.guard.api;
+package org.eclipse.daanse.rdb.guard.api.exception;
 
-import org.eclipse.daanse.rdb.guard.api.exception.GuardException;
+public class EmptyStatementGuardException extends GuardException {
 
-public interface SqlGuard {
+    private static final long serialVersionUID = 1L;
 
-    String guard(String sql) throws GuardException;
+    public EmptyStatementGuardException() {
+        this("The provided Statement must not be empty.");
+    }
+
+    private EmptyStatementGuardException(String message) {
+
+        super(message);
+    }
 
 }

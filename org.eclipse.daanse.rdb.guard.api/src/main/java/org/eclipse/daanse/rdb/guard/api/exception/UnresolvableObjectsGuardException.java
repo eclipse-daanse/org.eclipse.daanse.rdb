@@ -11,15 +11,22 @@
  *   SmartCity Jena - initial
  *   Stefan Bischof (bipolis.org) - initial
  */
-package org.eclipse.daanse.rdb.guard.api;
+package org.eclipse.daanse.rdb.guard.api.exception;
 
-public class UnallowedStatementTypeGuardException extends GuardException {
+import java.util.Set;
+
+public class UnresolvableObjectsGuardException extends GuardException {
 
     private static final long serialVersionUID = 1L;
+    private Set<String> unresolvedObjects;
 
-    public UnallowedStatementTypeGuardException(String message) {
+    public UnresolvableObjectsGuardException(String message) {
 
         super(message);
+    }
+
+    public Set<String> getUnresolvedObjects() {
+        return unresolvedObjects;
     }
 
 }
