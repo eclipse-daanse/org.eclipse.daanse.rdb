@@ -15,6 +15,7 @@
 package org.eclipse.daanse.rdb.guard.jsqltranspiler;
 
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.daanse.rdb.guard.api.SqlGuard;
 import org.eclipse.daanse.rdb.guard.api.exception.EmptyStatementGuardException;
@@ -38,6 +39,8 @@ import ai.starlake.transpiler.TableNotFoundException;
 import ai.starlake.transpiler.schema.JdbcColumn;
 import ai.starlake.transpiler.schema.JdbcMetaData;
 import net.sf.jsqlparser.JSQLParserException;
+import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.expression.Function;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.select.Select;
@@ -99,9 +102,9 @@ public class TranspilerSqlGuard implements SqlGuard {
                     throw new RuntimeException("INSERT is not permitted.");
                 }
 
-                // any insert columns must be empty
-//            final List<Function> allFunctions = resolver.getFunctions();
-                // TODO: Check Functions
+                // check functions
+                final List<Expression> functions = resolver.getFunctions();
+                final Set<String> functionNames = resolver.getFlatFunctionNames();
 
                 // we can finally resolve for the actually returned columns
                 JSQLColumResolver columResolver = new JSQLColumResolver(jdbcMetaDataToCopy);

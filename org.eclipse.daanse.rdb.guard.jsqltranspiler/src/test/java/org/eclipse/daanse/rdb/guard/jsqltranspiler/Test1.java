@@ -390,8 +390,8 @@ public class Test1 {
             result = guard.guard(String.format(SQL_WITH_HAVING, agg, agg));
             assertEquals(String.format(SQL_WITH_HAVING_EXPECTED, agg, agg), result);
 
-            assertThrows(UnresolvableObjectsGuardException.class, () -> 
-             guard.guard(String.format(SQL_WITH_HAVING_WRONG_TABLE, agg, agg)));
+            assertThrows(UnresolvableObjectsGuardException.class, () ->
+            guard.guard(String.format(SQL_WITH_HAVING_WRONG_TABLE, agg, agg)));
             //TODO "select avg(foo1.id) from foo group by foo.name")" with any aggregation use wrong table "foo1". we have foo table only
             //assertThrows(RuntimeException.class, () -> guard.guard("select avg(foo1.id) from foo group by foo.name"));
 
@@ -403,7 +403,7 @@ public class Test1 {
             //TODO select sum(foo.id) from foo group by foo.name having foo1.name = 'tets' with any aggregation use wrong table "foo1". we have "foo" table only
             //assertThrows(RuntimeException.class, () -> guard.guard("select count(foo.id) from foo group by foo.name having foo1.name = 'tets'"));
 
-            assertThrows(UnresolvableObjectsGuardException.class, () -> 
+            assertThrows(UnresolvableObjectsGuardException.class, () ->
 
             guard.guard(String.format(SQL_WITH_HAVING_WRONG_COLUMN, agg)));
             //TODO select sum(foo.id) from foo group by foo.name having foo.name1 = 'tets' we use wrong column name1. name1 ia absent. we have "name" column only
