@@ -58,18 +58,7 @@
     <module>structure.reader</module>
     <module>structure.check</module>
     <module>structure.documentation</module>
-    <module>org.eclipse.daanse.rdb.guard.api</module>
-    <module>org.eclipse.daanse.rdb.guard.jsqltranspiler</module>
   </modules>
 
-  <repositories>
-    <repository>
-      <id>jsqltranspiler-snapshots</id>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
-    </repository>
-  </repositories>
 
 </project>
