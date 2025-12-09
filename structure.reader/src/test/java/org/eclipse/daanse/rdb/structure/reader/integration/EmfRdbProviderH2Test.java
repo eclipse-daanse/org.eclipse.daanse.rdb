@@ -11,7 +11,7 @@
  *   SmartCity Jena - initial
  *   Stefan Bischof (bipolis.org) - initial
  */
-package org.eclipse.daanse.rdb.structure.reader;
+package org.eclipse.daanse.rdb.structure.reader.integration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -29,6 +29,7 @@ import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseCatalog;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
 import org.eclipse.daanse.rdb.structure.api.model.Table;
+import org.eclipse.daanse.rdb.structure.reader.EmfRdbProvider;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.jupiter.api.Test;
 import org.osgi.test.common.annotation.InjectService;
