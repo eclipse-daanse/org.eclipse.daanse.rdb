@@ -11,7 +11,7 @@
 *   SmartCity Jena - initial
 *   Stefan Bischof (bipolis.org) - initial
 */
-package org.eclipse.daanse.rdb.structure.emf.provider;
+package org.eclipse.daanse.rdb.structure.emf.provider.integration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
